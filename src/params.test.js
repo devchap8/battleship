@@ -1,7 +1,7 @@
 import { params } from "./params.js";
 
 describe('Ship Functions', () => {
-    const ship = new params.Ship(3, false);
+    const ship = new params.Ship(3, true);
 
     test('returns correct initial values', () => {
         expect(ship.getSize()).toBe(3);
@@ -34,4 +34,20 @@ describe('Ship Functions', () => {
         expect(ship.isHorizontal()).toBe(false);
     })
 
-})
+});
+
+
+describe('Gameboard Functions', () => {
+    const gameboard = new params.Gameboard();
+
+    test('valid moves', () => {
+        expect(gameboard.isValidMove(1, true, 0, 0)).toBe(true);
+        expect(gameboard.isValidMove(1, true, 9, 9)).toBe(true);
+        expect(gameboard.isValidMove(2, true, 9, 9)).toBe(false);
+        expect(gameboard.isValidMove(5, true, 6, 6)).toBe(false);
+        expect(gameboard.isValidMove(1, false, 0, 0)).toBe(true);
+        expect(gameboard.isValidMove(1, false, 9, 9)).toBe(true);
+        expect(gameboard.isValidMove(2, false, 9, 9)).toBe(false);
+        expect(gameboard.isValidMove(5, false, 6, 6)).toBe(false);
+    })
+});

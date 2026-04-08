@@ -33,6 +33,13 @@ class Gameboard {
         this.board.fill(new Array(10), 0, 10);
         this.board.forEach(row => row.fill(null, 0, 10));
     }
+
+    isValidMove = (size, horiz, x, y) => {
+        // x and y mark the top left corner of the ship
+        if(horiz && ((x + size - 1) > 9 || y > 9)) return false
+        if(!horiz && (x > 9 || (y + size - 1) > 9)) return false
+        return true
+    }
 }
 
 
