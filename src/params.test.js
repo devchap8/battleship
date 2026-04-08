@@ -28,4 +28,10 @@ describe('Ship Functions', () => {
         expect(ship.isSunk()).toBe(true);
     })
 
+    test('ship rotates', () => {
+        expect(ship.isHorizontal()).toBe(true);
+        expect(ship.rotate()).toBe(false);
+        expect(ship.isHorizontal()).toBe(false);
+    })
+
 })
