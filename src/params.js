@@ -1,10 +1,11 @@
 class Ship {
-    constructor(size) {
+    constructor(size, horizontal) {
         this.size = size;
         this.hits = 0;
         this.sunk = false;
-        this.horizontal = true;
+        this.horizontal = horizontal;
     }
+
     getSize = () => this.size;
     getHits = () => this.hits;
     isHorizontal = () => this.horizontal
@@ -26,6 +27,15 @@ class Ship {
     }
 }
 
+class Gameboard {
+    constructor() {
+        this.board = new Array(10);
+        this.board.fill(new Array(10), 0, 10);
+        this.board.forEach(row => row.fill(null, 0, 10));
+    }
+}
 
-const params = {Ship};
+
+
+const params = {Ship, Gameboard};
 export {params};

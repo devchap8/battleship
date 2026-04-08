@@ -1,7 +1,7 @@
 import { params } from "./params.js";
 
 describe('Ship Functions', () => {
-    const ship = new params.Ship(3);
+    const ship = new params.Ship(3, false);
 
     test('returns correct initial values', () => {
         expect(ship.getSize()).toBe(3);
