@@ -1,0 +1,64 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, 
+body {
+    position: relative;
+    height: 100%;
+    margin: none;
+}
+
+.gamemodeSelect {
+    background-color: lightblue;
+    width: 550px;
+    height: 550px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+    gap: 10px;
+}
+
+.gamemodeSelect > button {
+    width: 350px;
+    height: 100px;
+    justify-self: end;
+    font-size: 3rem;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.gamemodeSelect > span {
+    font-size: 2rem;
+    border: 1px solid black;
+    width: 40px;
+    text-align: center;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.gamemodeSelect > div {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    z-index: 10;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.singleplayerTooltipIcon:hover .singleplayerTooltip {
+    opacity: 1;
+    visibility: visible;
+}
