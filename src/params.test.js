@@ -61,7 +61,15 @@ describe('Gameboard Functions', () => {
     });
 
     test('board receives attacks', () => {
-
+        expect(gameboard.getShipSpaces()).toBe(9);
+        expect(gameboard.receiveAttack(9, 9)).toEqual({x:9, y:9, wasHit:true});
+        expect(gameboard.board[9][9]).toBe("O");
+        expect(ship1.getHits()).toBe(1);
+        expect(ship1.isSunk()).toBe(true);
+        expect(() => {gameboard.receiveAttack(9, 9)}).toThrow("Error: This space has already been attacked");
+        expect(gameboard.receiveAttack(8, 8)).toEqual({x:8, y:8, wasHit:false});
+        expect(gameboard.board[8][8]).toBe("X");
+        expect(gameboard.getShipSpaces()).toBe(8);
     })
 
 });

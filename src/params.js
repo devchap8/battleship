@@ -15,7 +15,10 @@ class Ship {
     isHorizontal = () => this.#horizontal
 
     hit = () => {
-        if(this.#hits < this.#size) this.#hits++;
+        if(this.#hits < this.#size) {
+            this.#hits++;
+            this.isSunk();
+        }
     } 
 
     isSunk = () => {
@@ -32,7 +35,9 @@ class Ship {
 }
 
 class Gameboard {
+    #shipSpaces;
     constructor() {
+        this.#shipSpaces = 0;
         this.board = new Array(10);
         for(let i = 0; i < 10; i++) {
             const arr = new Array(10);
@@ -40,6 +45,8 @@ class Gameboard {
         }
         this.board.forEach(row => row.fill(null, 0, 10));
     }
+
+    getShipSpaces = () => this.#shipSpaces;
 
     isValidMove = (size, horiz, x, y) => {
         // x and y mark the top left corner of the ship
@@ -53,20 +60,23 @@ class Gameboard {
         for(let i = 0; i < ship.getSize(); i++) {
             this.board[x][y] = ship;
             ship.isHorizontal() ? y++ : x++;
+            this.#shipSpaces++;
         }
         return true;
     }
 
     receiveAttack = (x, y) => {
-        // look at gameboard at x, y
-        // if there is a ship there
-            // run hit on the ship
-            // replace ship with "O"
-            // return object with x, y, and wasHit set to true
-        // if not
-            // replace null with "X"
-            // return object with x, y, and wasHit set to false
-        
+        if(this.board[x][y] === "O" || this.board[x][y] === "X") {
+            throw new Error("Error: This space has already been attacked");
+        } else if(!this.board[x][y]) {
+            this.board[x][y] = "X";
+            return { x: x, y: y, wasHit: false };
+        } else {
+            this.board[x][y].hit();
+            this.board[x][y] = "O";
+            this.#shipSpaces--;
+            return { x: x, y: y, wasHit: true };
+        }
     }
 }
 
