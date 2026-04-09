@@ -1,29 +1,33 @@
 class Ship {
+    #size;
+    #hits;
+    #sunk;
+    #horizontal;
     constructor(size, horizontal) {
-        this.size = size;
-        this.hits = 0;
-        this.sunk = false;
-        this.horizontal = horizontal;
+        this.#size = size;
+        this.#hits = 0;
+        this.#sunk = false;
+        this.#horizontal = horizontal;
     }
 
-    getSize = () => this.size;
-    getHits = () => this.hits;
-    isHorizontal = () => this.horizontal
+    getSize = () => this.#size;
+    getHits = () => this.#hits;
+    isHorizontal = () => this.#horizontal
 
     hit = () => {
-        if(this.hits < this.size) this.hits++;
+        if(this.#hits < this.#size) this.#hits++;
     } 
 
     isSunk = () => {
-        if(this.hits >= this.size) {
-            this.sunk = true;
+        if(this.#hits >= this.#size) {
+            this.#sunk = true;
         }
-        return this.sunk;
+        return this.#sunk;
     }
 
     rotate = () => {
-        this.horizontal = !this.horizontal;
-        return this.horizontal;
+        this.#horizontal = !this.#horizontal;
+        return this.#horizontal;
     }
 }
 
@@ -45,20 +49,31 @@ class Gameboard {
     }
 
     placeShip = (ship, x, y) => {
-        if(!this.isValidMove(ship.size, ship.horizontal, x, y)) return false;
-        for(let i = 0; i < ship.size; i++) {
+        if(!this.isValidMove(ship.getSize(), ship.isHorizontal(), x, y)) return false;
+        for(let i = 0; i < ship.getSize(); i++) {
             this.board[x][y] = ship;
-            ship.horizontal ? y++ : x++;
+            ship.isHorizontal() ? y++ : x++;
         }
         return true;
     }
+
+    receiveAttack = (x, y) => {
+        // look at gameboard at x, y
+        // if there is a ship there
+            // run hit on the ship
+            // replace ship with "O"
+            // return object with x, y, and wasHit set to true
+        // if not
+            // replace null with "X"
+            // return object with x, y, and wasHit set to false
+        
+    }
 }
 
-// const board = new Gameboard();
+// let gameboard = new Gameboard();
 // let ship5 = new Ship(5, true);
-// board.placeShip(ship5, 0, 0);
-// console.log(board.board);
-
+// console.log(gameboard.placeShip(ship5, 0, 0))
+// console.log(gameboard.board);
 
 const params = {Ship, Gameboard};
 export {params};

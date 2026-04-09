@@ -1,7 +1,7 @@
 import { params } from "./params.js";
 
 describe('Ship Functions', () => {
-    const ship = new params.Ship(3, true);
+    let ship = new params.Ship(3, true);
 
     test('returns correct initial values', () => {
         expect(ship.getSize()).toBe(3);
@@ -20,7 +20,7 @@ describe('Ship Functions', () => {
     });
 
     test('ship gets sunk', () => {
-        ship.hits = 0;
+        ship = new params.Ship(3, true);
         ship.hit();
         ship.hit();
         expect(ship.isSunk()).toBe(false);
@@ -38,19 +38,7 @@ describe('Ship Functions', () => {
 
 
 describe('Gameboard Functions', () => {
-    const gameboard = new params.Gameboard();
-
-    // test('valid moves', () => {
-    //     expect(gameboard.isValidMove(1, true, 0, 0)).toBe(true);
-    //     expect(gameboard.isValidMove(1, true, 9, 9)).toBe(true);
-    //     expect(gameboard.isValidMove(2, true, 9, 9)).toBe(false);
-    //     expect(gameboard.isValidMove(5, true, 6, 6)).toBe(false);
-    //     expect(gameboard.isValidMove(1, false, 0, 0)).toBe(true);
-    //     expect(gameboard.isValidMove(1, false, 9, 9)).toBe(true);
-    //     expect(gameboard.isValidMove(2, false, 9, 9)).toBe(false);
-    //     expect(gameboard.isValidMove(5, false, 6, 6)).toBe(false);
-    // });
-
+    let gameboard = new params.Gameboard();
     let ship5 = new params.Ship(5, true);
     let ship1 = new params.Ship(1, true);
     let ship3 = new params.Ship(3, false);
@@ -70,6 +58,10 @@ describe('Gameboard Functions', () => {
         expect(gameboard.placeShip(ship3, 7, 0)).toBe(true);
         expect(gameboard.board[7][0]).toBe(ship3);
         expect(gameboard.board[9][0]).toBe(ship3);
+    });
+
+    test('board receives attacks', () => {
+
     })
 
 });
