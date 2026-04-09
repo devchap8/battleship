@@ -73,3 +73,13 @@ describe('Gameboard Functions', () => {
     })
 
 });
+
+test('player parameters', () => {
+    const player = new params.Player(true);
+    expect(player.getRealPlayer()).toBe(true);
+    const ship3 = new params.Ship(3, true);
+    expect(player.board.placeShip(ship3, 0, 0)).toBe(true);
+    expect(player.board.board[0][0]).toBe(ship3);
+    player.board.receiveAttack(0, 0);
+    expect(player.board.board[0][0]).toBe("O");
+})
