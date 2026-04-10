@@ -4,15 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Battleship</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>BATTLESHIP</h1>
-    <div class="gamemodeSelect">
-        <button class="singleplayerButton">Singleplayer</button>
-        <span class="singleplayerTooltipIcon">i</span>
-        <div class="singleplayerTooltip">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius dolores, corporis, voluptatem, magnam ullam molestiae expedita pariatur nobis iusto ea ratione obcaecati beatae. Itaque sit tempora rem fugiat recusandae sint!</div>
-        <button class="twoplayerButton">Two Player</button>
-        <span class="twoplayerTooltipIcon">i</span>
-    </div>
+    
+    <div class="background-image-container"></div>
+
+    <header>
+        <h1>BATTLESHIP</h1>
+    </header>
+
+    <main>
+        <section class="gamemode-select-panel">
+            
+            <div class="selection-row">
+                <button class="gamemode-button singleplayer-button">
+                    SINGLEPLAYER
+                </button>
+                <div class="tooltip-container">
+                    <span class="tooltip-icon">i</span>
+                    <div class="tooltip-box">
+                        <h3>Battle the AI</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius dolores, corporis, voluptatem, magnam ullam.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="selection-row">
+                <button class="gamemode-button twoplayer-button">
+                    TWO PLAYER
+                </button>
+                <div class="tooltip-container">
+                    <span class="tooltip-icon">i</span>
+                    <div class="tooltip-box">
+                        <h3>Local VS</h3>
+                        <p>Engage in head-to-head naval warfare against a friend on the same screen. Strategize and dominate!</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
 </body>
 </html>
