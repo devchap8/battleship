@@ -89,5 +89,27 @@ class Player {
     getRealPlayer = () => this.#realPlayer;
 }
 
-const params = {Ship, Gameboard, Player};
+const characters = [
+    {
+        id: "shrapnel",
+        name: "Captain Shrapnel",
+        gadget: "Moby Dick",
+        background: "Captain Reggie Shrapnel throws caution to the wind and faces his enemies head on through sheer power. Known as an outgoing and boisterous leader throughout the American navy, he rose quickly through the ranks thanks to his trust and love from his comrades, which is matched only by the fear from the enemy fleet seeing his boat on the horizon. Captian Shrapnel end his battles swiftly and triumphantly.",
+        description: "Attacks every square in a 3x3 radius at the cost of losing your next turn to recharge."
+    }, {
+        id: "yelena",
+        name: "Officer Yelena",
+        gadget: "Sonar Bombs",
+        background: "As trusted by her subordinates as she is feared, Officer Yelena Kuznetsov has forged a flawless battle record through controlling information. She scarcely ever speaks aside from issuing precise and decisive orders. Touted as Russia's finest commanding officer, Yelena always makes sure she is one step ahead of her opponents with the newest cutting-edge tools.",
+        description: "For your next 3 attacks, the 4 squares adjacent to where you attacked are revealed."
+    }, {
+        id: "aikawa",
+        name: "Admiral Aikawa",
+        gadget: "Gatling Cannon",
+        background: "Combining his sharp intuition cultivated through decades of battles with ingeniously engineered state of the art weaponry, Admiral Hayase Aikawa is a once-in-a-generation talent. Through sheer battle IQ, he precicely determines his enemy's position and ruthlessly mows them down. It is said that Aikawa has seen so much naval warfare that he's developed a sixth sense to read the waves.",
+        description: "One tile containing an enemy ship is revealed. For your next 3 turns, if you hit an enemy ship, you can shoot again until you miss."
+    }
+];
+
+const params = {Ship, Gameboard, Player, characters};
 export {params};
