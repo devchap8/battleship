@@ -8,3 +8,11 @@ singleplayerButton.addEventListener("click", () => domManip.changeScreen("charac
 
 params.characters.forEach(char => domManip.displayCharIcon(char));
 
+
+// remove below later
+const characterPortrait = document.querySelector(".character-portrait");
+const gadgetPortrait = document.querySelector(".gadget-portrait");
+import placeholder from "./images/shrapnel.png";
+characterPortrait.src = placeholder;
+gadgetPortrait.src = placeholder;
+
