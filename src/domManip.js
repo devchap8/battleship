@@ -1,4 +1,5 @@
 const screenList = Array.from(document.querySelectorAll(".screen"));
+const characterSidebar = document.querySelector(".character-sidebar");
 
 const changeScreen = (screenID) => {
     screenList.forEach(screen => {
@@ -7,9 +8,14 @@ const changeScreen = (screenID) => {
     });
 }
 
+const displayCharIcon = (char) => {
+    const icon = document.createElement("img");
+    icon.setAttribute("src", char.icon);
+    icon.setAttribute("alt", char.name);
+    characterSidebar.appendChild(icon);
+}
 
 
 
-
-const domManip = {changeScreen};
+const domManip = {changeScreen, displayCharIcon};
 export {domManip};
