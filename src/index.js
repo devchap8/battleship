@@ -4,5 +4,5 @@ import { domManip } from "./domManip.js";
 
 
 const singleplayerButton = document.querySelector(".singleplayer-button");
-singleplayerButton.addEventListener("click", domManip.changeScreen);
+singleplayerButton.addEventListener("click", () => domManip.changeScreen("character-select-screen"));
 
