@@ -89,10 +89,5 @@ class Player {
     getRealPlayer = () => this.#realPlayer;
 }
 
-// let gameboard = new Gameboard();
-// let ship5 = new Ship(5, true);
-// console.log(gameboard.placeShip(ship5, 0, 0))
-// console.log(gameboard.board);
-
 const params = {Ship, Gameboard, Player};
 export {params};

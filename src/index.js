@@ -1,1 +1,8 @@
 import "./style.css";
+import { params } from "./params.js";
+import { domManip } from "./domManip.js";
+
+
+const singleplayerButton = document.querySelector(".singleplayer-button");
+singleplayerButton.addEventListener("click", domManip.changeScreen);
+
