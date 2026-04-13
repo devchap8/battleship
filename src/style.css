@@ -3,6 +3,7 @@
 :root {
     --navy-dark: #0d1b2a;
     --navy-light: #004d7c;
+    --yellow: #ffd700
 }
 
 * {
@@ -291,17 +292,14 @@ Character Select Screen
 .character-info > div {
     display: flex;
     gap: 20px;
-    /* border: 3px solid black; */
 }
 
 .character-info > div > *:first-child {
     flex: 2;   
-    /* border: 1px solid purple; */
 }
 
 .character-info > div > *:last-child {
     flex: 1;
-    /* border: 1px solid purple; */
 }
 
 /* Character Info Images / Text */
@@ -312,7 +310,9 @@ Character Select Screen
 }
 
 .character-info img {
-    height: 400px;
+    max-width: 100%;
+    height: auto;
+    max-height: 400px;
 }
 
 .character-info-names-line {
@@ -350,4 +350,201 @@ Character Select Screen
     color: var(--navy-light);
     background-color: #fff;
     box-shadow: 0 0 30px rgba(255, 255, 255, 0.75);
+}
+
+/* =======================
+Game Screen 
+======================= */
+
+#game-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 0 0 0;
+}
+
+.game-header {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Grids */
+
+.battlefield-container {
+    display: flex;
+    gap: 60px;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.grid-board {
+    display: grid;
+    grid-template-columns: repeat(10, 60px);
+    grid-template-rows: repeat(10, 60px);
+    gap: 2px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 3px solid var(--navy-light);
+    padding: 2px;
+}
+
+.grid-board div { /* Cells to be generated in JS */
+    background: rgba(13, 27, 42, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Ability / Tooltip */
+
+.ability-container {
+    position: relative;
+}
+
+.ability-icon {
+    width: 70px;
+    height: 70px;
+    border: 3px solid var(--yellow);
+    border-radius: 12px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.ability-hotkey {
+    position: absolute;
+    top: 2px;
+    left: 4px;
+    font-size: .8rem;
+    font-weight: 700;
+    color: var(--yellow);
+    z-index: 2;
+}
+
+.ability-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ability-tooltip {
+    bottom: calc(100% + 15px);
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 250px;
+}
+
+.ability-tooltip::before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top: 10px solid #fff;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+}
+
+/* Footer / Dialogue */
+
+.game-footer {
+    height: 180px;
+    width: 100%;
+    background: rgba(13, 27, 42, 0.9);
+    border-top: 4px solid var(--navy-light);
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.footer-overlay {
+    width: 100%;
+    max-width: 1200px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
+    transition: opacity 0.3s ease;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Ship Dock Styling */
+
+.ship-dock {
+    display: flex;
+    gap: 15px;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px;
+}
+
+.ship {
+    background: #4a4e69;
+    border: 2px solid #9a8c98;
+    border-radius: 5px;
+    cursor: grab;
+    height: 30px;
+    flex-shrink: 0;
+}
+
+.ship[data-length="5"] {width: 150px;}
+.ship[data-length="4"] {width: 120px;}
+.ship[data-length="3"] {width: 90px;}
+.ship[data-length="2"] {width: 60px;}
+
+/* Ready Button */
+
+.ready-button {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    background: #1b4332;
+    color: #fff;
+    border: 2px solid #2d6a4f;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.ready-button:hover {
+    background: #2d6a4f;
+    transform: scale(1.1);
+}
+
+/* Dialogue Interface */
+.dialogue-portrait {
+    width: 120px;
+    height: 120px;
+    border: 2px solid var(--navy-light);
+    margin-right: 30px;
+    background: #000;
+}
+
+.dialogue-portrait img { width: 100%; height: 100%; object-fit: cover; }
+
+.dialogue-content {
+    flex-grow: 1;
+}
+
+.speaker-name {
+    display: block;
+    font-weight: bold;
+    color: #ffd700;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.message-container {
+    font-size: 1.2rem;
+    line-height: 1.4;
+    height: 3em; /* Keep height consistent even when empty */
 }

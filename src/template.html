@@ -48,13 +48,13 @@
             </section>
         </main>
     </section>
-    <section id="character-select-screen" class="screen active">
+
+    <section id="character-select-screen" class="screen">
         <!-- Remove active later ^^^^^ -->
          <div class="character-sidebar">
             <h2 class="character-select-header">Select Character</h2>
          </div>
          <div class="character-info">
-            <!-- later remove all of this and put it in JS? -->
              <div class="character-info-pic-line">
                 <img src="./images/placeholder.png" class="character-portrait">
                 <img src="./images/placeholder.png" class="gadget-portrait">
@@ -69,6 +69,63 @@
              </div>
              <button class="select-character-button">Select</button>
          </div>
+    </section>
+
+    <section id="game-screen" class="screen active">
+        <header class="game-header">
+            <div class="game-status-text">
+                <h2 id="phase-title">FLEET DEPLOYMENT</h2>
+                <p id="phase-subtitle">Drag ships onto your grid</p>
+            </div>
+            
+            <div class="ability-container hidden">
+                <div class="ability-icon">
+                    <span class="ability-hotkey">Q</span>
+                    <img src="./images/placeholder.png" alt="Ability">
+                </div>
+                <div class="tooltip-box ability-tooltip">
+                    <h3 id="ability-name">Ability Name</h3>
+                    <p id="ability-desc">Ability Description</p>
+                </div>
+            </div>
+        </header>
+
+        <main class="battlefield-container">
+            <div class="grid-wrapper">
+                <h3 class="grid-label">FRIENDLY BOARD</h3>
+                <div id="player-grid" class="grid-board"></div>
+            </div>
+            
+            <div class="grid-wrapper">
+                <h3 class="grid-label">ENEMY BOARD</h3>
+                <div id="enemy-grid" class="grid-board enemy-hidden"></div>
+            </div>
+        </main>
+
+        <footer class="game-footer">
+            <div id="setup-controls" class="footer-overlay">
+                <div class="ship-dock">
+                    <div class="ship" draggable="true" data-length="5"></div>
+                    <div class="ship" draggable="true" data-length="4"></div>
+                    <div class="ship" draggable="true" data-length="3"></div>
+                    <div class="ship" draggable="true" data-length="3"></div>
+                    <div class="ship" draggable="true" data-length="2"></div>
+                </div>
+                <button id="finalize-btn" class="ready-button">READY TO BATTLE</button>
+            </div>
+
+            <div id="dialogue-interface" class="footer-overlay hidden">
+                <div class="dialogue-portrait">
+                    <img src="./images/placeholder.png" alt="Character">
+                </div>
+                <div class="dialogue-content">
+                    <span class="speaker-name">CAPTAIN NAME</span>
+                    <div class="message-container">
+                        <p id="typewriter-text">Waiting for orders, Admiral...</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </section>
 </body>
 </html>
