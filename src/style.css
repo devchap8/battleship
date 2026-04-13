@@ -261,7 +261,8 @@ Character Select Screen
     transition: all 0.5s ease;
 }
 
-.character-sidebar > img:hover {
+.character-sidebar > img:hover,
+.character-sidebar > img.selectedChar {
     transform: scale(1.1);
     box-shadow: 0 0 25px rgba(255, 255, 255, 0.75);
     background: rgba(255, 255, 255, .2);
@@ -270,6 +271,7 @@ Character Select Screen
 /* Character Info Screen */
 
 .character-info {
+    position: relative;
     flex: 3;
     background: rgba(255, 255, 255, .25);
     backdrop-filter: blur(10px);
@@ -282,35 +284,70 @@ Character Select Screen
     padding: 30px;
 }  
 
+.character-info * {
+    transition: all 0.5s ease;
+}
+
 .character-info > div {
     display: flex;
     gap: 20px;
-    border: 3px solid black;
+    /* border: 3px solid black; */
 }
 
 .character-info > div > *:first-child {
     flex: 2;   
-    border: 1px solid purple;
+    /* border: 1px solid purple; */
 }
 
 .character-info > div > *:last-child {
     flex: 1;
-    border: 1px solid purple;
+    /* border: 1px solid purple; */
 }
 
+/* Character Info Images / Text */
+
 .character-info-pic-line {
-    flex: 2;
+    flex: 2.5;
+    align-items: center;
+}
+
+.character-info img {
+    height: 400px;
 }
 
 .character-info-names-line {
     flex: .5;
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    display: flex;
+    align-items: center;
+    text-align: center;
 }
 
 .character-info-description-line {
     flex: 1.5;
+     font-size: 1.5rem;
 }
 
+/* Character Select Button */
 
-.character-info img {
-    max-height: 500px;
+.select-character-button {
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+    font-size: 2.5rem;
+    font-weight: 700;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    color: #fff;
+    background-color: rgba(255, 255, 255, .3);
+    border: 2px solid #fff;   
+    border-radius: 20px;
+}
+
+.select-character-button:hover {
+    color: var(--navy-light);
+    background-color: #fff;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.75);
 }
