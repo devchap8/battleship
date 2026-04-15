@@ -9,21 +9,9 @@ const startSinglePlayer = () => {
     domManip.changeScreen("character-select-screen");
 }
 
-const getRandomP2 = () => {
-    let randChar = params.characters[Math.floor(Math.random() * 3)];
-    if (randChar.id !== game.p1.character.id) {
-        game.p2 = new params.Player(false, randChar);
-    } else getRandomP2;
-}
-
 const selectChar = () => {
     const char = document.querySelector(".selectedChar");
     const charID = char.getAttribute("character-id");
-    // search characters for id matching charID
-    // make a new player
-    // if p1 is not null, set the char as p2 and move to the next screen
-    // if p1 is null and game.isSingleplayer, set char as p1 and move screens
-    // else >> implement later
     let character;
     for (let c of params.characters) {
         if(c.id === charID) {
@@ -37,7 +25,7 @@ const selectChar = () => {
         domManip.changeScreen("game-screen");
     } else if (game.p1 === null && game.isSingleplayer) {
         game.p1 = player;
-        getRandomP2();
+        game.getRandomP2();
         domManip.changeScreen("game-screen");
     } else {
         // game is 2p and player selected p1

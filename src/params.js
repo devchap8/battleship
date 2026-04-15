@@ -106,6 +106,13 @@ class Game {
         this.turn = 0;
         this.isSingleplayer = isSingleplayer;
     }
+
+    getRandomP2 = () => {
+        let randChar = characters[Math.floor(Math.random() * 3)];
+        if (randChar.id !== this.p1.character.id) {
+            this.p2 = new Player(false, randChar);
+        } else getRandomP2;
+    }
 }
 
 const characters = [
