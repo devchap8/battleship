@@ -91,11 +91,21 @@ class Gameboard {
 
 class Player {
     #realPlayer;
-    constructor(realPlayer) {
+    constructor(realPlayer, character) {
         this.#realPlayer = realPlayer;
         this.board = new Gameboard();
+        this.character = character;
     }
     getRealPlayer = () => this.#realPlayer;
+}
+
+class Game {
+    constructor(isSingleplayer) {
+        this.p1 = null;
+        this.p2 = null;
+        this.turn = 0;
+        this.isSingleplayer = isSingleplayer;
+    }
 }
 
 const characters = [
@@ -129,5 +139,5 @@ const characters = [
     }
 ];
 
-const params = {Ship, Gameboard, Player, characters};
+const params = {Ship, Gameboard, Player, Game, characters};
 export {params};
