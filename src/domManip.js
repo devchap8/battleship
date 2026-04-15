@@ -6,6 +6,8 @@ const charName = document.querySelector(".character-name");
 const gadgetName = document.querySelector(".gadget-name");
 const charDescription = document.querySelector(".character-description");
 const gadgetDescription = document.querySelector(".gadget-description");
+const p1Grid = document.querySelector("#player-1-grid");
+const p2Grid = document.querySelector("#player-2-grid");
 
 const changeScreen = (screenID) => {
     screenList.forEach(screen => {
@@ -34,7 +36,14 @@ const displayCharInfo = (char) => {
     gadgetDescription.innerHTML = char.description;
 }
 
+const setupGrids = () => {
+    for (let i = 0; i < 100; i++) {
+        const p1Block = document.createElement("div");
+        p1Grid.appendChild(p1Block);
+        const p2Block = document.createElement("div");
+        p2Grid.appendChild(p2Block);
+    }
+}
 
-
-const domManip = {changeScreen, displayCharIcon, displayCharInfo};
+const domManip = {changeScreen, displayCharIcon, displayCharInfo, setupGrids};
 export {domManip};

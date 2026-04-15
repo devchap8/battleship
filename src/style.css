@@ -399,6 +399,10 @@ Game Screen
     border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+.grid-board div:hover {
+    background: rgba(24, 50, 78, 0.8);
+}
+
 /* Ability / Tooltip */
 
 .ability-container {
@@ -492,14 +496,14 @@ Game Screen
     border: 2px solid #9a8c98;
     border-radius: 5px;
     cursor: grab;
-    height: 30px;
+    height: 40px;
     flex-shrink: 0;
 }
 
-.ship[data-length="5"] {width: 150px;}
-.ship[data-length="4"] {width: 120px;}
-.ship[data-length="3"] {width: 90px;}
-.ship[data-length="2"] {width: 60px;}
+.ship[data-length="5"] {width: 280px;}
+.ship[data-length="4"] {width: 220px;}
+.ship[data-length="3"] {width: 160px;}
+.ship[data-length="2"] {width: 100px;}
 
 /* Ready Button */
 

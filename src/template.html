@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="background-image-container"></div>
-    <section id="menu-screen" class="screen active">
+    <section id="menu-screen" class="screen ">
     <!-- Make active later ^^^^^ -->
         <header>
             <h1>BATTLESHIP</h1>
@@ -71,7 +71,7 @@
          </div>
     </section>
 
-    <section id="game-screen" class="screen">
+    <section id="game-screen" class="screen active">
         <!-- Remove active later ^^^ -->
         <header class="game-header">
             <div class="game-status-text">
@@ -93,13 +93,13 @@
 
         <main class="battlefield-container">
             <div class="grid-wrapper">
-                <h3 class="grid-label">FRIENDLY BOARD</h3>
-                <div id="player-grid" class="grid-board"></div>
+                <h3 class="grid-label">PLAYER 1</h3>
+                <div id="player-1-grid" class="grid-board"></div>
             </div>
             
             <div class="grid-wrapper">
-                <h3 class="grid-label">ENEMY BOARD</h3>
-                <div id="enemy-grid" class="grid-board enemy-hidden"></div>
+                <h3 class="grid-label">PLAYER 2</h3>
+                <div id="player-2-grid" class="grid-board enemy-hidden"></div>
             </div>
         </main>
 

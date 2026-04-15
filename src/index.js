@@ -64,6 +64,8 @@ const init = () => {
     charIcons.forEach(icon => icon.addEventListener("click", () => charIconClicked(icon)));
     charIconClicked(charIcons[0]);
 
+    domManip.setupGrids();
+
     
 }
 init();
