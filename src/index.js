@@ -49,6 +49,18 @@ const charIconClicked = (icon) => {
     domManip.displayCharInfo(char);
 }
 
+const focusShip = (event) => {
+    if (!Array.from(event.target.classList).includes("ship")) return;
+    if (Array.from(event.target.classList).includes("selected-ship")) {
+        event.target.classList.remove("selected-ship");
+        return;
+    }
+    const focusedShips = Array.from(document.querySelectorAll(".selected-ship"));
+    focusedShips.forEach(ship => ship.classList.remove("selected-ship"))
+    const ship = event.target;
+    ship.classList.add("selected-ship");
+}
+
 const init = () => {
     // setup single player button event listener
     const singleplayerButton = document.querySelector(".singleplayer-button");
@@ -65,6 +77,10 @@ const init = () => {
     charIconClicked(charIcons[0]);
 
     domManip.setupGrids();
+
+    //  make ship focus function
+    const gameScreen = document.querySelector("#game-screen");
+    gameScreen.addEventListener("click", focusShip)
 
     
 }

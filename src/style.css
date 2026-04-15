@@ -394,7 +394,7 @@ Game Screen
     padding: 2px;
 }
 
-.grid-board div { /* Cells to be generated in JS */
+.grid-board div { 
     background: rgba(13, 27, 42, 0.8);
     border: 1px solid rgba(255, 255, 255, 0.05);
 }
@@ -498,6 +498,10 @@ Game Screen
     cursor: grab;
     height: 40px;
     flex-shrink: 0;
+}
+
+.selected-ship {
+    background: #9a8c98;
 }
 
 .ship[data-length="5"] {width: 280px;}
