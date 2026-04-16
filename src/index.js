@@ -2,10 +2,8 @@ import "./style.css";
 import { params } from "./params.js";
 import { domManip } from "./domManip.js";
 
-let game;
-
 const startSinglePlayer = () => {
-    game = new params.Game(true);
+    params.game = new params.Game(true);
     domManip.changeScreen("character-select-screen");
 }
 
@@ -20,19 +18,19 @@ const selectChar = () => {
         }
     }
     const player = new params.Player(true, character);
-    if (game.p1 !== null) {
-        game.p2 = player;
+    if (params.game.p1 !== null) {
+        params.game.p2 = player;
         domManip.changeScreen("game-screen");
-    } else if (game.p1 === null && game.isSingleplayer) {
-        game.p1 = player;
-        game.getRandomP2();
+    } else if (params.game.p1 === null && params.game.isSingleplayer) {
+        params.game.p1 = player;
+        params.game.getRandomP2();
         domManip.changeScreen("game-screen");
     } else {
         // game is 2p and player selected p1
         // remove selected char from sidebar and let p2 select
         // move screens
     }
-    console.log(game);
+    console.log(params.game);
 }
 
 const charIconClicked = (icon) => {
@@ -47,18 +45,6 @@ const charIconClicked = (icon) => {
         }
     }
     domManip.displayCharInfo(char);
-}
-
-const focusShip = (event) => {
-    if (!Array.from(event.target.classList).includes("ship")) return;
-    if (Array.from(event.target.classList).includes("selected-ship")) {
-        event.target.classList.remove("selected-ship");
-        return;
-    }
-    const focusedShips = Array.from(document.querySelectorAll(".selected-ship"));
-    focusedShips.forEach(ship => ship.classList.remove("selected-ship"))
-    const ship = event.target;
-    ship.classList.add("selected-ship");
 }
 
 const init = () => {
@@ -78,9 +64,9 @@ const init = () => {
 
     domManip.setupGrids();
 
-    //  make ship focus function
-    const gameScreen = document.querySelector("#game-screen");
-    gameScreen.addEventListener("click", focusShip)
+    // setup ship selection fn
+    const shipCards = Array.from(document.querySelectorAll(".ship-card"));
+    shipCards.forEach(card => card.addEventListener("click", domManip.selectShip))
 
     
 }

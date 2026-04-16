@@ -105,13 +105,15 @@ class Game {
         this.p2 = null;
         this.turn = 0;
         this.isSingleplayer = isSingleplayer;
+        this.selectedShipLen = 0;
+        this.currBoard = null;
     }
 
     getRandomP2 = () => {
         let randChar = characters[Math.floor(Math.random() * 3)];
         if (randChar.id !== this.p1.character.id) {
             this.p2 = new Player(false, randChar);
-        } else getRandomP2;
+        } else this.getRandomP2();
     }
 }
 
@@ -146,5 +148,11 @@ const characters = [
     }
 ];
 
-const params = {Ship, Gameboard, Player, Game, characters};
+let game;
+// delete below later, for debugging
+game = new Game(true);
+game.p1 = new Player(true, "shrapnel");
+game.p2 = new Player(false, "yelena");
+
+const params = {Ship, Gameboard, Player, Game, characters, game};
 export {params};

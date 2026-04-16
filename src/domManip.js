@@ -1,3 +1,5 @@
+import { params } from "./params.js";
+
 const screenList = Array.from(document.querySelectorAll(".screen"));
 const characterSidebar = document.querySelector(".character-sidebar");
 const charPortrait = document.querySelector(".character-portrait");
@@ -45,5 +47,18 @@ const setupGrids = () => {
     }
 }
 
-const domManip = {changeScreen, displayCharIcon, displayCharInfo, setupGrids};
+const selectShip = (event) => {
+    if(event.target.classList.contains("ship-selected")) {
+        event.target.classList.remove("ship-selected");
+        params.game.selectedShipLen = 0;
+        return;
+    }
+    const selectedShips = Array.from(document.querySelectorAll(".ship-selected"));
+    selectedShips.forEach(ship => ship.classList.remove("ship-selected"));
+    event.target.classList.add("ship-selected");
+    params.game.selectedShipLen = event.target.dataset.length;
+    console.log(params.game.selectedShipLen);
+}
+
+const domManip = {changeScreen, displayCharIcon, displayCharInfo, setupGrids, selectShip};
 export {domManip};

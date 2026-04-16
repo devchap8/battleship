@@ -547,6 +547,10 @@ Game Screen
     color: rgba(255, 255, 255, 0.7);
 }
 
+.ship-icon, .ship-label {
+    pointer-events: none;
+}
+
 /* Hover Classes for the Grid (to be applied via JS) */
 .grid-cell.hover-valid {
     background-color: rgba(255, 255, 255, 0.4) !important;
