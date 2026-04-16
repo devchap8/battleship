@@ -399,9 +399,9 @@ Game Screen
     border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.grid-board div:hover {
+/* .grid-board div:hover {
     background: rgba(24, 50, 78, 0.8);
-}
+} */
 
 /* Ability / Tooltip */
 
@@ -552,12 +552,12 @@ Game Screen
 }
 
 /* Hover Classes for the Grid (to be applied via JS) */
-.grid-cell.hover-valid {
+.grid-block.hover-valid {
     background-color: rgba(255, 255, 255, 0.4) !important;
     border: 1px solid #fff;
 }
 
-.grid-cell.hover-invalid {
+.grid-block.hover-invalid {
     background-color: rgba(255, 0, 0, 0.4) !important;
     border: 1px solid #ff0000;
 }

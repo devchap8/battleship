@@ -68,7 +68,9 @@ const init = () => {
     const shipCards = Array.from(document.querySelectorAll(".ship-card"));
     shipCards.forEach(card => card.addEventListener("click", domManip.selectShip))
 
-    
+    // setup ship placing hover
+    const battlefieldContainer = document.querySelector(".battlefield-container");
+    battlefieldContainer.addEventListener("mouseover", domManip.hoverGridCell);
 }
 init();
 

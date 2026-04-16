@@ -41,8 +41,12 @@ const displayCharInfo = (char) => {
 const setupGrids = () => {
     for (let i = 0; i < 100; i++) {
         const p1Block = document.createElement("div");
+        p1Block.setAttribute("data-block-num", i);
+        p1Block.classList.add("grid-block");
         p1Grid.appendChild(p1Block);
         const p2Block = document.createElement("div");
+        p2Block.setAttribute("data-block-num", i);
+        p2Block.classList.add("grid-block");
         p2Grid.appendChild(p2Block);
     }
 }
@@ -57,8 +61,25 @@ const selectShip = (event) => {
     selectedShips.forEach(ship => ship.classList.remove("ship-selected"));
     event.target.classList.add("ship-selected");
     params.game.selectedShipLen = event.target.dataset.length;
-    console.log(params.game.selectedShipLen);
 }
 
-const domManip = {changeScreen, displayCharIcon, displayCharInfo, setupGrids, selectShip};
+const hoverGridCell = (event) => {
+    const len = +params.game.selectedShipLen;
+    if(!event.target.classList.contains("grid-block") || len < 1) return
+    let validPlacement = true;
+    const blockNum = event.target.dataset.blockNum;
+    if((+blockNum + len - 1) % 10 < +blockNum % 10) validPlacement = false;
+    const shipBlocks = [];
+    for(let i = blockNum; i < +blockNum + +len; i++) {
+        const block = document.querySelector(`[data-block-num="${i}"]`);
+        shipBlocks.push(block);
+    }
+    validPlacement
+        ? shipBlocks.forEach(block => block.classList.add("hover-valid"))
+        : shipBlocks.forEach(block => block.classList.add("hover-invalid"))
+}
+
+const domManip = {changeScreen, displayCharIcon, displayCharInfo, setupGrids, selectShip,
+    hoverGridCell
+};
 export {domManip};
