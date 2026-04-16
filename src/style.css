@@ -3,7 +3,7 @@
 :root {
     --navy-dark: #0d1b2a;
     --navy-light: #004d7c;
-    --yellow: #ffd700
+    --yellow: #ffd700;
 }
 
 * {
@@ -479,7 +479,7 @@ Game Screen
     display: none !important;
 }
 
-/* Ship Dock Styling */
+/* Ship Dock / Cards */
 
 .ship-dock {
     display: flex;
@@ -491,7 +491,6 @@ Game Screen
     padding: 10px;
 }
 
-/* Container for the ship buttons */
 .ship-inventory {
     display: flex;
     gap: 20px;
@@ -500,7 +499,6 @@ Game Screen
     align-items: center;
 }
 
-/* Individual Ship Card */
 .ship-card {
     width: 80px;
     height: 100px;
@@ -521,14 +519,12 @@ Game Screen
     border-color: #fff;
 }
 
-/* When the user clicks a ship to "hold" it */
 .ship-card.ship-selected {
     background: var(--navy-light);
     border-color: #ffd700;
     box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
 }
 
-/* Grayed out state for after placement */
 .ship-card.placed {
     opacity: 0.3;
     filter: grayscale(1);
@@ -551,7 +547,6 @@ Game Screen
     pointer-events: none;
 }
 
-/* Hover Classes for the Grid (to be applied via JS) */
 .grid-block.hover-valid {
     background-color: rgba(255, 255, 255, 0.4) !important;
     border: 1px solid #fff;
@@ -560,6 +555,79 @@ Game Screen
 .grid-block.hover-invalid {
     background-color: rgba(255, 0, 0, 0.4) !important;
     border: 1px solid #ff0000;
+}
+
+/* Horiz / Vert Toggle Slider */
+
+.placement-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 20px;
+}
+
+.rotation-toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: rgba(255, 255, 255, .1);
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, .2);
+}
+
+.toggle-label {
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, .6);
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--navy-dark);
+    border: 2px solid var(--navy-light);
+    transition: .4s;
+    border-radius: 35px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: #fff;
+    transition: .4s;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 255, 255, .5);
+}
+
+input:checked + .slider {
+    background-color: var(--navy-light);
+}
+
+input:checked + .slider:before {
+    transform: translateX(30px);
 }
 
 /* Ready Button */
