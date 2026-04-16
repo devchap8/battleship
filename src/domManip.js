@@ -70,9 +70,11 @@ const hoverGridCell = (event) => {
     const blockNum = event.target.dataset.blockNum;
     if((+blockNum + len - 1) % 10 < +blockNum % 10) validPlacement = false;
     const shipBlocks = [];
-    for(let i = blockNum; i < +blockNum + +len; i++) {
+    let prev = 0;
+    for(let i = blockNum; i < +blockNum + +len && i % 10 >= prev; i++) {
         const block = document.querySelector(`[data-block-num="${i}"]`);
-        shipBlocks.push(block);
+        if(block) shipBlocks.push(block);
+        prev = i % 10;
     }
     validPlacement
         ? shipBlocks.forEach(block => block.classList.add("hover-valid"))
