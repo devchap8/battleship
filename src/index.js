@@ -71,6 +71,7 @@ const init = () => {
     // setup ship placing hover
     const battlefieldContainer = document.querySelector(".battlefield-container");
     battlefieldContainer.addEventListener("mouseover", domManip.hoverGridCell);
+    battlefieldContainer.addEventListener("mouseout", domManip.unhoverGridCell);
 }
 init();
 

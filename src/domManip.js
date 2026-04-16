@@ -81,7 +81,16 @@ const hoverGridCell = (event) => {
         : shipBlocks.forEach(block => block.classList.add("hover-invalid"))
 }
 
+const unhoverGridCell = (event) => {
+    if(!event.target.classList.contains("grid-block")) return
+    let hovered = Array.from(document.querySelectorAll(".hover-valid"));
+    hovered = hovered.concat(Array.from(document.querySelectorAll(".hover-invalid")));
+    hovered.forEach(block => {
+        block.classList = "grid-block";
+    })
+}
+
 const domManip = {changeScreen, displayCharIcon, displayCharInfo, setupGrids, selectShip,
-    hoverGridCell
+    hoverGridCell, unhoverGridCell
 };
 export {domManip};
