@@ -72,6 +72,11 @@ const init = () => {
     const battlefieldContainer = document.querySelector(".battlefield-container");
     battlefieldContainer.addEventListener("mouseover", domManip.hoverGridCell);
     battlefieldContainer.addEventListener("mouseout", domManip.unhoverGridCell);
+
+    // toggle horiz vert slider with keyboard
+    const checkbox = document.querySelector("#rotation-slider");
+    window.addEventListener("keydown", domManip.toggleCheckbox);
+    checkbox.addEventListener("change", () => params.game.placeHorizontal = !checkbox.checked);
 }
 init();
 

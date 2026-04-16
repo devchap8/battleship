@@ -107,6 +107,7 @@ class Game {
         this.isSingleplayer = isSingleplayer;
         this.selectedShipLen = 0;
         this.currBoard = null;
+        this.placeHorizontal = true;
     }
 
     getRandomP2 = () => {
