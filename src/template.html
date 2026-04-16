@@ -105,16 +105,31 @@
 
         <footer class="game-footer">
             <div id="setup-controls" class="footer-overlay">
-                <div class="ship-dock">
-                    <div class="ship" draggable="true" data-length="5"></div>
-                    <div class="ship" draggable="true" data-length="4"></div>
-                    <div class="ship" draggable="true" data-length="3"></div>
-                    <div class="ship" draggable="true" data-length="3"></div>
-                    <div class="ship" draggable="true" data-length="2"></div>
+                <div class="ship-inventory">
+                    <div class="ship-card" data-ship="carrier" data-length="5">
+                        <div class="ship-icon">🚢</div>
+                        <span class="ship-label">Size 5</span>
+                    </div>
+                    <div class="ship-card" data-ship="battleship" data-length="4">
+                        <div class="ship-icon">🚢</div>
+                        <span class="ship-label">Size 4</span>
+                    </div>
+                    <div class="ship-card" data-ship="destroyer" data-length="3">
+                        <div class="ship-icon">🛥️</div>
+                        <span class="ship-label">Size 3</span>
+                    </div>
+                    <div class="ship-card" data-ship="submarine" data-length="3">
+                        <div class="ship-icon">⚓</div>
+                        <span class="ship-label">Size 3</span>
+                    </div>
+                    <div class="ship-card" data-ship="patrol" data-length="2">
+                        <div class="ship-icon">🚤</div>
+                        <span class="ship-label">Size 2</span>
+                    </div>
                 </div>
                 <button id="finalize-btn" class="ready-button">READY TO BATTLE</button>
             </div>
-
+            
             <div id="dialogue-interface" class="footer-overlay hidden">
                 <div class="dialogue-portrait">
                     <img src="./images/placeholder.png" alt="Character">

@@ -491,23 +491,72 @@ Game Screen
     padding: 10px;
 }
 
-.ship {
-    background: #4a4e69;
-    border: 2px solid #9a8c98;
-    border-radius: 5px;
-    cursor: grab;
-    height: 40px;
-    flex-shrink: 0;
+/* Container for the ship buttons */
+.ship-inventory {
+    display: flex;
+    gap: 20px;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
 }
 
-.selected-ship {
-    background: #9a8c98;
+/* Individual Ship Card */
+.ship-card {
+    width: 80px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
-.ship[data-length="5"] {width: 280px;}
-.ship[data-length="4"] {width: 220px;}
-.ship[data-length="3"] {width: 160px;}
-.ship[data-length="2"] {width: 100px;}
+.ship-card:hover:not(.placed) {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-5px);
+    border-color: #fff;
+}
+
+/* When the user clicks a ship to "hold" it */
+.ship-card.ship-selected {
+    background: var(--navy-light);
+    border-color: #ffd700;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+/* Grayed out state for after placement */
+.ship-card.placed {
+    opacity: 0.3;
+    filter: grayscale(1);
+    cursor: not-allowed;
+    border-color: transparent;
+}
+
+.ship-icon {
+    font-size: 2rem;
+    margin-bottom: 5px;
+}
+
+.ship-label {
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Hover Classes for the Grid (to be applied via JS) */
+.grid-cell.hover-valid {
+    background-color: rgba(255, 255, 255, 0.4) !important;
+    border: 1px solid #fff;
+}
+
+.grid-cell.hover-invalid {
+    background-color: rgba(255, 0, 0, 0.4) !important;
+    border: 1px solid #ff0000;
+}
 
 /* Ready Button */
 
