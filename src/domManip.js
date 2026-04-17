@@ -69,9 +69,11 @@ const selectShip = (event) => {
 const hoverGridCell = (event) => {
     // make it so you can only place blocks on left when isP1Turn true, and vice versa
     const len = +params.game.selectedShipLen;
-    if(!event.target.classList.contains("grid-block") || len < 1) return
-    let currPlayer;
-    event.target.classList.contains("p1-block") ? currPlayer = "p1" : currPlayer = "p2";
+    if(!event.target.classList.contains("grid-block") || len < 1) return;
+    let currPlayer = "";
+    params.game.isP1Turn ? currPlayer = "p1" : currPlayer = "p2";
+    if(currPlayer == "p1" && event.target.parentElement.id === "player-2-grid") return;
+    else if(currPlayer == "p2" && event.target.parentElement.id === "player-1-grid") return;
     let validPlacement = true;
     const shipBlocks = [];
     const blockNum = event.target.dataset.blockNum;
