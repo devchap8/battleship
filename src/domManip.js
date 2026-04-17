@@ -95,7 +95,8 @@ const unhoverGridCell = (event) => {
     let hovered = Array.from(document.querySelectorAll(".hover-valid"));
     hovered = hovered.concat(Array.from(document.querySelectorAll(".hover-invalid")));
     hovered.forEach(block => {
-        block.classList = "grid-block";
+        if(block.classList.contains("hover-valid")) block.classList.remove("hover-valid");
+        if(block.classList.contains("hover-invalid")) block.classList.remove("hover-invalid");
     })
 }
 
@@ -108,7 +109,20 @@ const toggleCheckbox = (e) => {
     }
 }
 
+const placeShipDom = (event) => {
+    if(!event.target.classList.contains("grid-block")) return
+    const validBlocks = Array.from(document.querySelectorAll(".hover-valid"));
+    for(let block of validBlocks) {
+        block.classList.remove("hover-valid");
+        block.classList.add("occupied-block");
+    }
+    params.game.selectedShipLen = 0;
+    const selectedShip = document.querySelector(".ship-selected");
+    selectedShip.classList.remove("ship-selected");
+    selectedShip.classList.add("card-placed");
+}
+
 const domManip = {changeScreen, displayCharIcon, displayCharInfo, setupGrids, selectShip,
-    hoverGridCell, unhoverGridCell, toggleCheckbox
+    hoverGridCell, unhoverGridCell, toggleCheckbox, placeShipDom
 };
 export {domManip};

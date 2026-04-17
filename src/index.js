@@ -77,6 +77,9 @@ const init = () => {
     const checkbox = document.querySelector("#rotation-slider");
     window.addEventListener("keydown", domManip.toggleCheckbox);
     checkbox.addEventListener("change", () => params.game.placeHorizontal = !checkbox.checked);
+
+    // place ships
+    battlefieldContainer.addEventListener("click", domManip.placeShipDom);
 }
 init();
 
