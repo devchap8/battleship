@@ -50,6 +50,7 @@ const charIconClicked = (icon) => {
 const placeShip = (event) => {
     if(!event.target.classList.contains("grid-block")) return
     const shipBlocks = domManip.placeShipDom(event);
+    if(!shipBlocks) return;
     const blockNums = [];
     let board;
     shipBlocks[0].classList.contains("p1-block") 

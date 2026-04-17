@@ -90,6 +90,12 @@ const hoverGridCell = (event) => {
             if(block) shipBlocks.push(block);         
         }
     }
+    for(let block of shipBlocks) {
+        if(block.classList.contains("occupied-block")) {
+            validPlacement = false;
+            break;
+        }
+    }
     validPlacement
         ? shipBlocks.forEach(block => block.classList.add("hover-valid"))
         : shipBlocks.forEach(block => block.classList.add("hover-invalid"))
@@ -116,6 +122,7 @@ const toggleCheckbox = (e) => {
 
 const placeShipDom = (event) => {
     const validBlocks = Array.from(document.querySelectorAll(".hover-valid"));
+    if(validBlocks.length < 1) return;
     for(let block of validBlocks) {
         block.classList.remove("hover-valid");
         block.classList.add("occupied-block");
