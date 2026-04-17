@@ -106,7 +106,7 @@ class Game {
         this.turn = 0;
         this.isSingleplayer = isSingleplayer;
         this.selectedShipLen = 0;
-        this.currBoard = null;
+        this.isP1Turn = true;
         this.placeHorizontal = true;
     }
 

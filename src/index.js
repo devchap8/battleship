@@ -47,6 +47,29 @@ const charIconClicked = (icon) => {
     domManip.displayCharInfo(char);
 }
 
+const placeShip = (event) => {
+    if(!event.target.classList.contains("grid-block")) return
+    const shipBlocks = domManip.placeShipDom(event);
+    const blockNums = [];
+    let board;
+    shipBlocks[0].classList.contains("p1-block") 
+        ? board = params.game.p1.board
+        : board = params.game.p2.board;
+    for(const block of shipBlocks) {
+        blockNums.push(block.getAttribute("data-block-num"));
+    }
+    const ship = new params.Ship(params.game.selectedShipLen, params.game.placeHorizontal);
+    for(const num of blockNums) {
+        const row = Math.floor(num / 10);
+        const col = num % 10
+        params.game.isP1Turn
+            ? params.game.p1.board.board[row][col] = ship
+            : params.game.p2.board.board[row][col] = ship;
+    }
+    params.game.selectedShipLen = 0;
+    console.log(params.game.p1.board.board);
+}
+
 const init = () => {
     // setup single player button event listener
     const singleplayerButton = document.querySelector(".singleplayer-button");
@@ -79,7 +102,7 @@ const init = () => {
     checkbox.addEventListener("change", () => params.game.placeHorizontal = !checkbox.checked);
 
     // place ships
-    battlefieldContainer.addEventListener("click", domManip.placeShipDom);
+    battlefieldContainer.addEventListener("click", placeShip);
 }
 init();
 

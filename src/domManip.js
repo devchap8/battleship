@@ -44,10 +44,12 @@ const setupGrids = () => {
         const p1Block = document.createElement("div");
         p1Block.setAttribute("data-block-num", i);
         p1Block.classList.add("grid-block");
+        p1Block.classList.add("p1-block")
         p1Grid.appendChild(p1Block);
         const p2Block = document.createElement("div");
         p2Block.setAttribute("data-block-num", i);
         p2Block.classList.add("grid-block");
+        p2Block.classList.add("p2-block")
         p2Grid.appendChild(p2Block);
     }
 }
@@ -65,8 +67,11 @@ const selectShip = (event) => {
 }
 
 const hoverGridCell = (event) => {
+    // make it so you can only place blocks on left when isP1Turn true, and vice versa
     const len = +params.game.selectedShipLen;
     if(!event.target.classList.contains("grid-block") || len < 1) return
+    let currPlayer;
+    event.target.classList.contains("p1-block") ? currPlayer = "p1" : currPlayer = "p2";
     let validPlacement = true;
     const shipBlocks = [];
     const blockNum = event.target.dataset.blockNum;
@@ -74,14 +79,14 @@ const hoverGridCell = (event) => {
         if((+blockNum + len - 1) % 10 < +blockNum % 10) validPlacement = false;
         let prev = 0;
         for(let i = +blockNum; i < +blockNum + +len && i % 10 >= prev; i++) {
-            const block = document.querySelector(`[data-block-num="${i}"]`);
+            const block = document.querySelector(`[data-block-num="${i}"].${currPlayer}-block`);
             if(block) shipBlocks.push(block);
             prev = i % 10;
         }  
     } else {
         if(+blockNum + (10 * (len - 1)) > 99) validPlacement = false;
         for(let i = +blockNum; i <= +blockNum + (10 * (len - 1)) && i < 99; i += 10) {
-            const block = document.querySelector(`[data-block-num="${i}"]`);
+            const block = document.querySelector(`[data-block-num="${i}"].${currPlayer}-block`);
             if(block) shipBlocks.push(block);         
         }
     }
@@ -110,16 +115,15 @@ const toggleCheckbox = (e) => {
 }
 
 const placeShipDom = (event) => {
-    if(!event.target.classList.contains("grid-block")) return
     const validBlocks = Array.from(document.querySelectorAll(".hover-valid"));
     for(let block of validBlocks) {
         block.classList.remove("hover-valid");
         block.classList.add("occupied-block");
     }
-    params.game.selectedShipLen = 0;
     const selectedShip = document.querySelector(".ship-selected");
     selectedShip.classList.remove("ship-selected");
     selectedShip.classList.add("card-placed");
+    return validBlocks;
 }
 
 const domManip = {changeScreen, displayCharIcon, displayCharInfo, setupGrids, selectShip,
