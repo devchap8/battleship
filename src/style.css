@@ -471,7 +471,6 @@ Game Screen
     height: 100%;
     display: flex;
     align-items: center;
-    padding: 0 40px;
     transition: opacity 0.3s ease;
 }
 
@@ -560,6 +559,25 @@ Game Screen
 .grid-block.occupied-block {
     background-color: rgba(255, 255, 255, .1);
     border: 1px solid rgba(255, 255, 255, 0.75);
+}
+
+/* Reset Grid Button */
+
+.reset-grid-button {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.reset-grid-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #fff;
 }
 
 /* Horiz / Vert Toggle Slider */

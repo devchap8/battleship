@@ -68,6 +68,24 @@ const placeShip = (event) => {
             : params.game.p2.board.board[row][col] = ship;
     }
     params.game.selectedShipLen = 0;
+}
+
+const resetGrid = () => {
+    let dataBoard;
+    let domBoard;
+    if(params.game.isP1Turn) {
+        dataBoard = params.game.p1.board;
+        domBoard = document.querySelector("#player-1-grid");
+    } else {
+        dataBoard = params.game.p2.board;
+        domBoard = document.querySelector("#player-2-grid");
+    }
+    dataBoard.board = dataBoard.setupBoard();
+    const cells = Array.from(domBoard.children);
+    cells.forEach(cell => {
+        cell.classList = "grid-block";
+        params.game.isP1Turn ? cell.classList.add("p1-block") : cell.classList.add("p2-block");
+    });
     console.log(params.game.p1.board.board);
 }
 
@@ -104,6 +122,10 @@ const init = () => {
 
     // place ships
     battlefieldContainer.addEventListener("click", placeShip);
+
+    // board setup reset button
+    const resetGridButton = document.querySelector(".reset-grid-button");
+    resetGridButton.addEventListener("click", resetGrid);
 }
 init();
 

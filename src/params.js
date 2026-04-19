@@ -47,12 +47,17 @@ class Gameboard {
     #shipSpaces;
     constructor() {
         this.#shipSpaces = 0;
-        this.board = new Array(10);
+        this.board = this.setupBoard();
+    }
+
+    setupBoard = () => {
+        let board = new Array(10);
         for(let i = 0; i < 10; i++) {
             const arr = new Array(10);
-            this.board[i] = arr;
+            board[i] = arr;
         }
-        this.board.forEach(row => row.fill(null, 0, 10));
+        board.forEach(row => row.fill(null, 0, 10));
+        return board
     }
 
     getShipSpaces = () => this.#shipSpaces;
