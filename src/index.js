@@ -86,7 +86,9 @@ const resetGrid = () => {
         cell.classList = "grid-block";
         params.game.isP1Turn ? cell.classList.add("p1-block") : cell.classList.add("p2-block");
     });
-    console.log(params.game.p1.board.board);
+    const shipCards = Array.from(document.querySelectorAll(".ship-card"));
+    shipCards.forEach(card => card.classList = "ship-card");
+    params.game.selectedShipLen = 0;
 }
 
 const init = () => {
