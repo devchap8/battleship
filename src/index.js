@@ -91,6 +91,17 @@ const resetGrid = () => {
     params.game.selectedShipLen = 0;
 }
 
+const readyButtonClicked = () => {
+    // 3 cases:
+        // 1 player
+        // 2p, p1 clicked
+        // 2p, p2 clicked
+    if(params.game.isSingleplayer) {
+        params.game.p2.board.makeRandomBoard();
+        // console.log(params.game.p2.board.board);
+    }
+}
+
 const init = () => {
     // setup single player button event listener
     const singleplayerButton = document.querySelector(".singleplayer-button");
@@ -128,6 +139,10 @@ const init = () => {
     // board setup reset button
     const resetGridButton = document.querySelector(".reset-grid-button");
     resetGridButton.addEventListener("click", resetGrid);
+
+    // ready button
+    const readyButton = document.querySelector(".ready-button");
+    readyButton.addEventListener("click", readyButtonClicked);
 }
 init();
 

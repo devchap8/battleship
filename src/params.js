@@ -62,15 +62,24 @@ class Gameboard {
 
     getShipSpaces = () => this.#shipSpaces;
 
-    isValidMove = (size, horiz, x, y) => {
-        // x and y mark the top left corner of the ship
-        if(horiz && ((y + size - 1) > 9 || x > 9)) return false
-        if(!horiz && (y > 9 || (x + size - 1) > 9)) return false
+    isValidPlacement = (size, horiz, x, y) => {
+        // x and y mark the top left block of the ship
+        if(horiz) {
+            if((y + size - 1) > 9 || x > 9) return false;
+            for(let i = y; i < y + size; i++) {
+                if(this.board[x][i] !== null) return false;
+            }
+        } else {
+            if(y > 9 || (x + size - 1) > 9) return false;
+            for(let i = x; i < x + size; i++) {
+                if(this.board[i][y] !== null) return false;
+            }
+        }
         return true
     }
 
     placeShip = (ship, x, y) => {
-        if(!this.isValidMove(ship.getSize(), ship.isHorizontal(), x, y)) return false;
+        if(!this.isValidPlacement(ship.getSize(), ship.isHorizontal(), x, y)) return false;
         for(let i = 0; i < ship.getSize(); i++) {
             this.board[x][y] = ship;
             ship.isHorizontal() ? y++ : x++;
@@ -90,6 +99,22 @@ class Gameboard {
             this.board[x][y] = "O";
             this.#shipSpaces--;
             return { x: x, y: y, wasHit: true };
+        }
+    }
+
+    makeRandomBoard = () => {
+        const shipLens = [2, 3, 3, 4, 5];
+        const shipOrients = [];
+        for(let i = 0; i < 5; i++) {
+            shipOrients.push(Math.floor(Math.random() * 2))
+        }
+        for(let i = 0; i < 5; i++) {
+            const ship = new Ship(shipLens.pop(), shipOrients.pop());
+            while(true) {
+                const row = Math.floor(Math.random() * 10);
+                const col = Math.floor(Math.random() * 10);
+                if(this.placeShip(ship, row, col)) break;
+            }
         }
     }
 }
