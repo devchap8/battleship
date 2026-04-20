@@ -11,6 +11,11 @@ const gadgetDescription = document.querySelector(".gadget-description");
 const p1Grid = document.querySelector("#player-1-grid");
 const p2Grid = document.querySelector("#player-2-grid");
 const checkbox = document.querySelector("#rotation-slider");
+const setupControls = document.querySelector("#setup-controls");
+const dialogueInterface = document.querySelector("#dialogue-interface");
+const abilityContainer = document.querySelector(".ability-container");
+const phaseTitle = document.querySelector("#phase-title");
+const phaseSubtitle = document.querySelector("#phase-subtitle");
 
 const changeScreen = (screenID) => {
     screenList.forEach(screen => {
@@ -115,7 +120,6 @@ const unhoverGridCell = (event) => {
 const toggleCheckbox = (e) => {
     if(e.key === " " || e.key.toLowerCase() === "r") {
         e.preventDefault();
-        console.log("run")
         checkbox.checked = !checkbox.checked;
         params.game.placeHorizontal = !checkbox.checked;
     }
@@ -134,7 +138,19 @@ const placeShipDom = (event) => {
     return validBlocks;
 }
 
+const startGameDom = () => {
+    setupControls.classList.add("hidden");
+    dialogueInterface.classList.remove("hidden");
+    abilityContainer.classList.remove("hidden");
+    phaseTitle.innerHTML = "PLAYER 1's TURN";
+    phaseSubtitle.innerHTML = "Attack an enemy square";
+}
+
+const showPlayerGameInfo = (player) => {
+
+}
+
 const domManip = {changeScreen, displayCharIcon, displayCharInfo, setupGrids, selectShip,
-    hoverGridCell, unhoverGridCell, toggleCheckbox, placeShipDom
+    hoverGridCell, unhoverGridCell, toggleCheckbox, placeShipDom, startGameDom
 };
 export {domManip};

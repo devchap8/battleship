@@ -95,6 +95,7 @@ const readyButtonClicked = () => {
         params.game.p2.board.makeRandomBoard();
         // console.log(params.game.p2.board.board);
     }
+    domManip.startGameDom();
 }
 
 const init = () => {
