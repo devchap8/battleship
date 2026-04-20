@@ -94,7 +94,7 @@ const hoverGridCell = (event) => {
         }  
     } else {
         if(+blockNum + (10 * (len - 1)) > 99) validPlacement = false;
-        for(let i = +blockNum; i <= +blockNum + (10 * (len - 1)) && i < 99; i += 10) {
+        for(let i = +blockNum; i <= +blockNum + (10 * (len - 1)) && i <= 99; i += 10) {
             const block = document.querySelector(`[data-block-num="${i}"].${currPlayer}-block`);
             if(block) shipBlocks.push(block);         
         }
