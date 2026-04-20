@@ -85,6 +85,7 @@ const resetGrid = () => {
 }
 
 const readyButtonClicked = () => {
+    console.log(params.game.p2.board.board);
     if(params.game.p1.board.getShipSpaces() < 17) return;
     if(!params.game.isSingleplayer && params.game.p1.board.getShipSpaces() < 17) return;
     // 3 cases:

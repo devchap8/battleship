@@ -151,7 +151,6 @@ const startGameDom = () => {
 }
 
 const showPlayerGameInfo = (player) => {
-    console.log(player.charInfo.gadgetPortrait)
     abilityIcon.setAttribute("src", player.charInfo.gadgetPortrait);
     dialoguePortrait.setAttribute("src", player.charInfo.icon);
     speakerName.innerHTML = player.charInfo.name;

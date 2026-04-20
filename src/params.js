@@ -79,7 +79,7 @@ class Gameboard {
     }
 
     placeShip = (ship, x, y) => {
-        if(!this.isValidPlacement(ship.getSize(), ship.isHorizontal(), x, y)) return false;
+        // if(!this.isValidPlacement(ship.getSize(), ship.isHorizontal(), x, y)) return false;
         for(let i = 0; i < ship.getSize(); i++) {
             this.board[x][y] = ship;
             ship.isHorizontal() ? y++ : x++;
@@ -113,7 +113,10 @@ class Gameboard {
             while(true) {
                 const row = Math.floor(Math.random() * 10);
                 const col = Math.floor(Math.random() * 10);
-                if(this.placeShip(ship, row, col)) break;
+                if(this.isValidPlacement(ship.getSize(), ship.isHorizontal(), row, col)) {
+                    this.placeShip(ship, row, col)
+                    break;
+                }
             }
         }
     }
