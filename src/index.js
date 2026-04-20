@@ -30,7 +30,6 @@ const selectChar = () => {
         // remove selected char from sidebar and let p2 select
         // move screens
     }
-    console.log(params.game);
 }
 
 const charIconClicked = (icon) => {
@@ -94,9 +93,29 @@ const readyButtonClicked = () => {
         // 2p, p2 clicked
     if(params.game.isSingleplayer) {
         params.game.p2.board.makeRandomBoard();
-        // console.log(params.game.p2.board.board);
     }
     domManip.startGameDom();
+    addAttackEventListeners();
+    params.game.isP1Turn = true;
+}
+
+const addAttackEventListeners = () => {
+    const p1Grid = document.querySelector("#player-1-grid");
+    const p2Grid = document.querySelector("#player-2-grid");
+    p1Grid.addEventListener("click", attackSquare);
+    p2Grid.addEventListener("click", attackSquare);
+}
+const attackSquare = (event) => {
+    if(!event.target.classList.contains("grid-block")) return;
+    const blockNum = event.target.getAttribute("data-block-num");
+    const row = Math.floor(blockNum / 10);
+    const col = blockNum % 10;
+    let attackedPlayer;
+    params.game.isP1Turn ? attackedPlayer = params.game.p2 : attackedPlayer = params.game.p1;
+    const hitInfo = attackedPlayer.board.receiveAttack(row, col);
+    hitInfo.wasHit ? domManip.attackHit(event.target) : domManip.attackMiss(event.target);
+    // console.log(hitInfo);
+    // console.log(params.game.p2.board.board);
 }
 
 const init = () => {

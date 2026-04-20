@@ -96,7 +96,7 @@ class Gameboard {
             return { x: x, y: y, wasHit: false };
         } else {
             this.board[x][y].hit();
-            this.board[x][y] = "O";
+            // this.board[x][y] = "O";
             this.#shipSpaces--;
             return { x: x, y: y, wasHit: true };
         }

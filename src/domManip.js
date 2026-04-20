@@ -158,7 +158,18 @@ const showPlayerGameInfo = (player) => {
     speakerName.innerHTML = player.charInfo.name;
 }
 
+const attackHit = (block) => {
+    block.classList.add("attacked-hit");
+    block.innerHTML = "O";
+}
+
+const attackMiss = (block) => {
+    block.classList.add("attacked-miss");
+    block.innerHTML = "X";
+}
+
 const domManip = {changeScreen, displayCharIcon, displayCharInfo, setupGrids, selectShip,
-    hoverGridCell, unhoverGridCell, toggleCheckbox, placeShipDom, startGameDom
+    hoverGridCell, unhoverGridCell, toggleCheckbox, placeShipDom, startGameDom, attackHit,
+    attackMiss
 };
 export {domManip};

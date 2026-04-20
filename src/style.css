@@ -711,3 +711,18 @@ input:checked + .slider:before {
 .active-board > div:hover {
     background: rgba(13, 27, 42, 0.5);
 }
+
+.attacked-hit, .attacked-miss {
+    pointer-events: none;
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+.attacked-hit {
+    color: lightgreen;
+}
+
+.attacked-miss {
+    color: var(--navy-light);
+}
