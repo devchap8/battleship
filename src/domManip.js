@@ -16,6 +16,9 @@ const dialogueInterface = document.querySelector("#dialogue-interface");
 const abilityContainer = document.querySelector(".ability-container");
 const phaseTitle = document.querySelector("#phase-title");
 const phaseSubtitle = document.querySelector("#phase-subtitle");
+const abilityIcon = document.querySelector(".ability-icon > img");
+const dialoguePortrait = document.querySelector(".dialogue-portrait > img");
+const speakerName = document.querySelector(".speaker-name");
 
 const changeScreen = (screenID) => {
     screenList.forEach(screen => {
@@ -144,10 +147,14 @@ const startGameDom = () => {
     abilityContainer.classList.remove("hidden");
     phaseTitle.innerHTML = "PLAYER 1's TURN";
     phaseSubtitle.innerHTML = "Attack an enemy square";
+    showPlayerGameInfo(params.game.p1);
 }
 
 const showPlayerGameInfo = (player) => {
-
+    console.log(player.charInfo.gadgetPortrait)
+    abilityIcon.setAttribute("src", player.charInfo.gadgetPortrait);
+    dialoguePortrait.setAttribute("src", player.charInfo.icon);
+    speakerName.innerHTML = player.charInfo.name;
 }
 
 const domManip = {changeScreen, displayCharIcon, displayCharInfo, setupGrids, selectShip,

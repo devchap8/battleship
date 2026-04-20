@@ -125,8 +125,16 @@ class Player {
         this.#realPlayer = realPlayer;
         this.board = new Gameboard();
         this.character = character;
+        this.charInfo = this.getCharInfo(character);
     }
     getRealPlayer = () => this.#realPlayer;
+    getCharInfo = (character) => {
+        for(let char of characters) {
+            if(char.id === character) {
+                return char;
+            }
+        }
+    }
 }
 
 class Game {
