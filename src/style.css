@@ -698,5 +698,16 @@ input:checked + .slider:before {
 .message-container {
     font-size: 1.2rem;
     line-height: 1.4;
-    height: 3em; /* Keep height consistent even when empty */
+    height: 3em; 
+}
+
+/* Gameplay */
+
+.inactive-board {
+    pointer-events: none;
+    opacity: .4;
+}
+
+.active-board > div:hover {
+    background: rgba(13, 27, 42, 0.5);
 }

@@ -148,6 +148,8 @@ const startGameDom = () => {
     phaseTitle.innerHTML = "PLAYER 1's TURN";
     phaseSubtitle.innerHTML = "Attack an enemy square";
     showPlayerGameInfo(params.game.p1);
+    p1Grid.classList.add("inactive-board");
+    p2Grid.classList.add("active-board");
 }
 
 const showPlayerGameInfo = (player) => {
