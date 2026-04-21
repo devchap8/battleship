@@ -57,7 +57,7 @@ const placeShip = (event) => {
     const num = shipBlocks[0].getAttribute("data-block-num");
     const row = Math.floor(num / 10);
     const col = num % 10;
-    const ship = new params.Ship(params.game.selectedShipLen, params.game.placeHorizontal);
+    const ship = new params.Ship(params.game.selectedShipLen, params.game.placeHorizontal, params.game.selectedShipType);
     board.placeShip(ship, row, col);
     params.game.selectedShipLen = 0;
 }
@@ -81,6 +81,7 @@ const resetGrid = () => {
     const shipCards = Array.from(document.querySelectorAll(".ship-card"));
     shipCards.forEach(card => card.classList = "ship-card");
     params.game.selectedShipLen = 0;
+    params.game.selectedShipType = null;
 }
 
 const readyButtonClicked = () => {

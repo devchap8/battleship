@@ -12,11 +12,12 @@ class Ship {
     #hits;
     #sunk;
     #horizontal;
-    constructor(size, horizontal) {
+    constructor(size, horizontal, type) {
         this.#size = size;
         this.#hits = 0;
         this.#sunk = false;
         this.#horizontal = horizontal;
+        this.type = type;
     }
 
     getSize = () => this.#size;
@@ -105,11 +106,12 @@ class Gameboard {
     makeRandomBoard = () => {
         const shipLens = [2, 3, 3, 4, 5];
         const shipOrients = [];
+        const shipTypes = ["patrol", "submarine", "destroyer", "battleship", "carrier"];
         for(let i = 0; i < 5; i++) {
             shipOrients.push(Math.floor(Math.random() * 2))
         }
         for(let i = 0; i < 5; i++) {
-            const ship = new Ship(shipLens.pop(), shipOrients.pop());
+            const ship = new Ship(shipLens.pop(), shipOrients.pop(), shipTypes.pop());
             while(true) {
                 const row = Math.floor(Math.random() * 10);
                 const col = Math.floor(Math.random() * 10);
@@ -147,6 +149,7 @@ class Game {
         this.turn = 0;
         this.isSingleplayer = isSingleplayer;
         this.selectedShipLen = 0;
+        this.selectedShipType = null;
         this.isP1Turn = true;
         this.placeHorizontal = true;
     }

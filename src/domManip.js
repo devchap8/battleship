@@ -66,12 +66,14 @@ const selectShip = (event) => {
     if(event.target.classList.contains("ship-selected")) {
         event.target.classList.remove("ship-selected");
         params.game.selectedShipLen = 0;
+        params.game.selectedShipType = null;
         return;
     }
     const selectedShips = Array.from(document.querySelectorAll(".ship-selected"));
     selectedShips.forEach(ship => ship.classList.remove("ship-selected"));
     event.target.classList.add("ship-selected");
     params.game.selectedShipLen = event.target.dataset.length;
+    params.game.selectedShipType = event.target.dataset.ship;
 }
 
 const hoverGridCell = (event) => {
