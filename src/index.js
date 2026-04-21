@@ -123,7 +123,17 @@ const attackSquare = (event) => {
     // console.log(params.game.p2.board.getShipSpaces());
     if(attackedPlayer.board.getShipSpaces() < 1) {
         params.game.isP1Turn ? gameWon(params.game.p1) : gameWon(params.game.p2);
+    } else {
+        newTurn();
     }
+}
+
+const newTurn = () => {
+    params.game.turn++;
+    if(params.game.isSingleplayer) {
+        // get random move from bot and attack square
+        params.game.turn++;
+    } else params.game.isP1Turn = !params.game.isP1Turn;
 }
 
 const gameWon = (player) => {
