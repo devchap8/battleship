@@ -115,6 +115,11 @@ const attackSquare = (event) => {
     params.game.isP1Turn ? attackedPlayer = params.game.p2 : attackedPlayer = params.game.p1;
     const hitInfo = attackedPlayer.board.receiveAttack(row, col);
     hitInfo.wasHit ? domManip.attackHit(event.target) : domManip.attackMiss(event.target);
+    if( hitInfo.wasSunk) {
+        const shipType  = attackedPlayer.board.board[row][col].type;
+        domManip.sinkShip(shipType);
+
+    }
     // console.log(hitInfo);
     // console.log(params.game.p2.board.board);
 }

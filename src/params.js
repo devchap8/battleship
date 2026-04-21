@@ -94,12 +94,13 @@ class Gameboard {
             throw new Error("Error: This space has already been attacked");
         } else if(!this.board[x][y]) {
             this.board[x][y] = "X";
-            return { x: x, y: y, wasHit: false };
+            return { x: x, y: y, wasHit: false, wasSunk: false };
         } else {
             this.board[x][y].hit();
             // this.board[x][y] = "O";
             this.#shipSpaces--;
-            return { x: x, y: y, wasHit: true };
+            if(this.board[x][y].isSunk()) return { x: x, y: y, wasHit: true, wasSunk: true }
+            else return { x: x, y: y, wasHit: true, wasSunk: false };
         }
     }
 

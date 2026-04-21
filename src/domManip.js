@@ -170,8 +170,37 @@ const attackMiss = (block) => {
     block.innerHTML = "X";
 }
 
+const sinkShip = (shipType) => {
+    let domBoard;
+    let dataBoard;
+    if(params.game.isP1Turn) {
+        domBoard = p2Grid;
+        dataBoard = params.game.p2.board.board;
+    } else {
+        domBoard = p1Grid;
+        dataBoard = params.game.p1.board.board;
+    }
+    const shipPositions = [];
+    for(let i = 0; i < dataBoard.length; i++) {
+        for(let j = 0; j < dataBoard.length; j++) {
+            if(typeof dataBoard[i][j] === "object" && dataBoard[i][j] !== null && dataBoard[i][j].type === shipType) {
+                shipPositions.push((i * 10) + j);
+            }
+        }
+    }
+    const domBlocks = [];
+    for(let pos of shipPositions) {
+        domBlocks.push(domBoard.querySelector(`[data-block-num="${pos}"]`));
+    }
+    console.log(domBlocks);
+    for(let block of domBlocks) {
+        block.innerHTML = "#";
+        block.classList.add("attacked-sunk");
+    }
+}
+
 const domManip = {changeScreen, displayCharIcon, displayCharInfo, setupGrids, selectShip,
     hoverGridCell, unhoverGridCell, toggleCheckbox, placeShipDom, startGameDom, attackHit,
-    attackMiss
+    attackMiss, sinkShip
 };
 export {domManip};

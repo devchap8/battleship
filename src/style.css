@@ -726,3 +726,7 @@ input:checked + .slider:before {
 .attacked-miss {
     color: var(--navy-light);
 }
+
+.attacked-sunk {
+    color: #fff;
+}
