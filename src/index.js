@@ -128,12 +128,37 @@ const attackSquare = (event) => {
     }
 }
 
+const randomAttack = () => {
+    const blockNum = Math.floor(Math.random() * 100);
+    const block = document.querySelector(`#player-1-grid [data-block-num="${blockNum}"]`);
+    if(block.classList.contains("attacked-hit") || block.classList.contains("attacked-miss") 
+    || block.classList.contains("attacked-sunk")) {
+        randomAttack();
+        return;
+    }
+    const row = Math.floor(blockNum / 10);
+    const col = blockNum % 10;
+    const hitInfo = params.game.p1.board.receiveAttack(row, col);
+    hitInfo.wasHit ? domManip.attackHit(block) : domManip.attackMiss(block);
+    if( hitInfo.wasSunk) {
+        const shipType  = params.game.p1.board.board[row][col].type;
+        domManip.sinkShip(shipType);
+    }
+    if(params.game.p1.board.getShipSpaces() < 1) {
+        gameWon(params.game.p2);
+    } else {
+        newTurn;
+    }
+}
+
 const newTurn = () => {
+    params.game.isP1Turn = !params.game.isP1Turn;
     params.game.turn++;
     if(params.game.isSingleplayer) {
-        // get random move from bot and attack square
+        randomAttack();
         params.game.turn++;
-    } else params.game.isP1Turn = !params.game.isP1Turn;
+        params.game.isP1Turn = !params.game.isP1Turn;
+    } 
 }
 
 const gameWon = (player) => {

@@ -91,7 +91,7 @@ class Gameboard {
 
     receiveAttack = (x, y) => {
         if(this.board[x][y] === "O" || this.board[x][y] === "X") {
-            throw new Error("Error: This space has already been attacked");
+            return false;
         } else if(!this.board[x][y]) {
             this.board[x][y] = "X";
             return { x: x, y: y, wasHit: false, wasSunk: false };
