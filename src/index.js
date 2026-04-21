@@ -120,8 +120,14 @@ const attackSquare = (event) => {
         domManip.sinkShip(shipType);
 
     }
-    // console.log(hitInfo);
-    // console.log(params.game.p2.board.board);
+    // console.log(params.game.p2.board.getShipSpaces());
+    if(attackedPlayer.board.getShipSpaces() < 1) {
+        params.game.isP1Turn ? gameWon(params.game.p1) : gameWon(params.game.p2);
+    }
+}
+
+const gameWon = (player) => {
+    alert(`${player.character} Wins!`)
 }
 
 const init = () => {
