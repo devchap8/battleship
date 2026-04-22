@@ -121,7 +121,7 @@ const attackSquare = (event) => {
     }
 
     if(attackingPlayer.character === "shrapnel" && attackingPlayer.abilityTurns > 0) {
-        //shrapnel attack
+        shrapnelAttack(attackedPlayer, row, col);
     } else {
         normalAttack(attackedPlayer, row, col);
     }
@@ -143,8 +143,32 @@ const normalAttack = (attackedPlayer, row, col) => {
     }
 }
 
-const shrapnelAttack = () => {
-
+const shrapnelAttack = (attackedPlayer, row, col) => {
+    // make a list of dataCoords and domNums and domBlocks
+    // for every block surrounding [row, col], if in range, add row and col to dataCoords
+    // for every coord of dataCoords, add row * 2 + col to domNums
+    // for every num of domNums, query select block of num and add to domBlocks
+    // for every cood of dataCoords, attack the square in data
+        // depending on hitinfo, change the square in dom with the index from the list
+    const dataCoords = [];
+    const domNums = [];
+    const domBlocks = [];
+    const coordMods = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 0], [0, 1], [1, -1], [1, 0], [1, 1]];
+    coordMods.forEach(mod => {
+        if(row + mod[0] >= 0 && row + mod[0] <= 9 && col + mod[1] >= 0 && col + mod[1] <= 9) {
+            dataCoords.push([row + mod[0], col + mod[1]]);
+        }
+    });
+    dataCoords.forEach(coord => {
+        domNums.push((coord[0] * 10) + coord[1]);
+    });
+    domNums.forEach(num => {
+        const block = document.querySelector(`[data-block-num="${num}"]`);
+        domBlocks.push(block);
+    });
+    console.log(dataCoords);
+    console.log(domNums);
+    console.log(domBlocks);
 }
 
 const randomAttack = () => {
@@ -191,24 +215,14 @@ const useGadget = () => {
     let player;
     params.game.isP1Turn ? player = params.game.p1 : player = params.game.p2;
     if(!player.abilityAvailable) return;
-    if(player.character === "shrapnel") {
-        // shrapnel gadget fn
+    if(player.character === "shrapnel" && player.abilityAvailable === true) {
+        player.abilityAvailable = false;
+        player.abilityTurns = 1;
     } else if(player.character === "yelena") {
         // yelena gadget fn
     } else {
         // aikawa gadget fn
     }
-}
-
-const shrapnelGadget = (player) => {
-    // display shrapnel's gadget use text
-    // add event listener to highlight every block around where user is hovering
-    // add event listener to unhighlight when user stops hovering
-    // add event listener where on click, saves the location of all blocks and attacks them
-    // remove all these event listeners
-    // ensure shrapnels next turn is skipped (make his ability active)
-    player.abilityTurns = 1;
-
 }
 
 const init = () => {
@@ -255,7 +269,10 @@ const init = () => {
 
     // gadget icon
     const abilityIcon = document.querySelector(".ability-icon");
-    abilityIcon.addEventListener("click", domManip.toggleAbilityActive);
+    abilityIcon.addEventListener("click", () => {
+        domManip.toggleAbilityActive();
+        useGadget();
+    });
 }
 init();
 

@@ -197,7 +197,6 @@ const sinkShip = (shipType) => {
     for(let pos of shipPositions) {
         domBlocks.push(domBoard.querySelector(`[data-block-num="${pos}"]`));
     }
-    console.log(domBlocks);
     for(let block of domBlocks) {
         block.innerHTML = "#";
         block.classList.add("attacked-sunk");
@@ -205,7 +204,6 @@ const sinkShip = (shipType) => {
 }
 
 const toggleAbilityActive = () => {
-    console.log("toggle");
     abilityBox.classList.contains("ability-active")
         ? abilityBox.classList.remove("ability-active")
         : abilityBox.classList.add("ability-active");
