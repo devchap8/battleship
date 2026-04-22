@@ -442,21 +442,33 @@ Game Screen
 }
 
 .ability-tooltip {
-    bottom: calc(100% + 15px);
+    position: absolute;
+    top: 100%;
     left: 50%;
-    transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-10px);
     width: 250px;
+    height: auto;
+    min-height: 50px;
+    pointer-events: none;
 }
 
 .ability-tooltip::before {
     content: "";
+    z-index: 10;
     position: absolute;
-    top: 100%;
+    /* bottom: 100%; */
+    top: -20px;
     left: 50%;
     transform: translateX(-50%);
-    border-top: 10px solid #fff;
+    border-bottom: 10px solid #fff;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
+}
+
+.ability-container:hover .ability-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0px);
 }
 
 /* Footer / Dialogue */

@@ -20,6 +20,8 @@ const abilityIcon = document.querySelector(".ability-icon > img");
 const abilityBox = document.querySelector(".ability-icon");
 const dialoguePortrait = document.querySelector(".dialogue-portrait > img");
 const speakerName = document.querySelector(".speaker-name");
+const tooltipGadgetName = document.querySelector("#ability-name");
+const tooltipGadgetDesc = document.querySelector("#ability-desc");
 
 const changeScreen = (screenID) => {
     screenList.forEach(screen => {
@@ -159,6 +161,8 @@ const showPlayerGameInfo = (player) => {
     abilityIcon.setAttribute("src", player.charInfo.gadgetPortrait);
     dialoguePortrait.setAttribute("src", player.charInfo.icon);
     speakerName.innerHTML = player.charInfo.name;
+    tooltipGadgetDesc.innerHTML = player.charInfo.description;
+    tooltipGadgetName.innerHTML = player.charInfo.gadget;
 }
 
 const attackHit = (block) => {
