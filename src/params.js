@@ -132,6 +132,8 @@ class Player {
         this.board = new Gameboard();
         this.character = character;
         this.charInfo = this.getCharInfo(character);
+        this.abilityAvailable = true;
+        this.abilityTurns = 0;
     }
     getRealPlayer = () => this.#realPlayer;
     getCharInfo = (character) => {

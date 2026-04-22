@@ -111,8 +111,29 @@ const attackSquare = (event) => {
     const blockNum = event.target.getAttribute("data-block-num");
     const row = Math.floor(blockNum / 10);
     const col = blockNum % 10;
-    let attackedPlayer;
-    params.game.isP1Turn ? attackedPlayer = params.game.p2 : attackedPlayer = params.game.p1;
+    let attackedPlayer, attackingPlayer;
+    if(params.game.isP1Turn) {
+        attackedPlayer = params.game.p2;
+        attackingPlayer = params.game.p1;
+    } else {
+        attackedPlayer = params.game.p1;
+        attackingPlayer = params.game.p2;
+    }
+
+    if(attackingPlayer.character === "shrapnel" && attackingPlayer.abilityTurns > 0) {
+        //shrapnel attack
+    } else {
+        normalAttack(attackedPlayer, row, col);
+    }
+
+    if(attackedPlayer.board.getShipSpaces() < 1) {
+        params.game.isP1Turn ? gameWon(params.game.p1) : gameWon(params.game.p2);
+    } else {
+        newTurn();
+    }
+}
+
+const normalAttack = (attackedPlayer, row, col) => {
     const hitInfo = attackedPlayer.board.receiveAttack(row, col);
     hitInfo.wasHit ? domManip.attackHit(event.target) : domManip.attackMiss(event.target);
     if( hitInfo.wasSunk) {
@@ -120,12 +141,10 @@ const attackSquare = (event) => {
         domManip.sinkShip(shipType);
 
     }
-    // console.log(params.game.p2.board.getShipSpaces());
-    if(attackedPlayer.board.getShipSpaces() < 1) {
-        params.game.isP1Turn ? gameWon(params.game.p1) : gameWon(params.game.p2);
-    } else {
-        newTurn();
-    }
+}
+
+const shrapnelAttack = () => {
+
 }
 
 const randomAttack = () => {
@@ -136,19 +155,22 @@ const randomAttack = () => {
         randomAttack();
         return;
     }
-    const row = Math.floor(blockNum / 10);
-    const col = blockNum % 10;
-    const hitInfo = params.game.p1.board.receiveAttack(row, col);
-    hitInfo.wasHit ? domManip.attackHit(block) : domManip.attackMiss(block);
-    if( hitInfo.wasSunk) {
-        const shipType  = params.game.p1.board.board[row][col].type;
-        domManip.sinkShip(shipType);
-    }
-    if(params.game.p1.board.getShipSpaces() < 1) {
-        gameWon(params.game.p2);
-    } else {
-        newTurn;
-    }
+    setTimeout(() => {
+        const row = Math.floor(blockNum / 10);
+        const col = blockNum % 10;
+        const hitInfo = params.game.p1.board.receiveAttack(row, col);
+        hitInfo.wasHit ? domManip.attackHit(block) : domManip.attackMiss(block);
+        if( hitInfo.wasSunk) {
+            const shipType  = params.game.p1.board.board[row][col].type;
+            domManip.sinkShip(shipType);
+        }
+        if(params.game.p1.board.getShipSpaces() < 1) {
+            gameWon(params.game.p2);
+        } else {
+            newTurn;
+        }   
+    }, 0);
+// ^^^ Increase delay to 500ms after testing is done
 }
 
 const newTurn = () => {
@@ -163,6 +185,30 @@ const newTurn = () => {
 
 const gameWon = (player) => {
     alert(`${player.character} Wins!`)
+}
+
+const useGadget = () => {
+    let player;
+    params.game.isP1Turn ? player = params.game.p1 : player = params.game.p2;
+    if(!player.abilityAvailable) return;
+    if(player.character === "shrapnel") {
+        // shrapnel gadget fn
+    } else if(player.character === "yelena") {
+        // yelena gadget fn
+    } else {
+        // aikawa gadget fn
+    }
+}
+
+const shrapnelGadget = (player) => {
+    // display shrapnel's gadget use text
+    // add event listener to highlight every block around where user is hovering
+    // add event listener to unhighlight when user stops hovering
+    // add event listener where on click, saves the location of all blocks and attacks them
+    // remove all these event listeners
+    // ensure shrapnels next turn is skipped (make his ability active)
+    player.abilityTurns = 1;
+
 }
 
 const init = () => {
