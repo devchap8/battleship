@@ -412,11 +412,17 @@ Game Screen
 .ability-icon {
     width: 70px;
     height: 70px;
-    border: 3px solid var(--yellow);
+    border: 3px solid #fff;
     border-radius: 12px;
     position: relative;
     cursor: pointer;
     overflow: hidden;
+    transition: .5s ease;
+}
+
+.ability-icon.ability-active {
+    transform: scale(1.1);
+    border: 3px solid var(--yellow);
 }
 
 .ability-hotkey {
@@ -425,7 +431,7 @@ Game Screen
     left: 4px;
     font-size: .8rem;
     font-weight: 700;
-    color: var(--yellow);
+    color: #fff;
     z-index: 2;
 }
 

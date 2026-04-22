@@ -17,6 +17,7 @@ const abilityContainer = document.querySelector(".ability-container");
 const phaseTitle = document.querySelector("#phase-title");
 const phaseSubtitle = document.querySelector("#phase-subtitle");
 const abilityIcon = document.querySelector(".ability-icon > img");
+const abilityBox = document.querySelector(".ability-icon");
 const dialoguePortrait = document.querySelector(".dialogue-portrait > img");
 const speakerName = document.querySelector(".speaker-name");
 
@@ -199,8 +200,15 @@ const sinkShip = (shipType) => {
     }
 }
 
+const toggleAbilityActive = () => {
+    console.log("toggle");
+    abilityBox.classList.contains("ability-active")
+        ? abilityBox.classList.remove("ability-active")
+        : abilityBox.classList.add("ability-active");
+}
+
 const domManip = {changeScreen, displayCharIcon, displayCharInfo, setupGrids, selectShip,
     hoverGridCell, unhoverGridCell, toggleCheckbox, placeShipDom, startGameDom, attackHit,
-    attackMiss, sinkShip
+    attackMiss, sinkShip, toggleAbilityActive
 };
 export {domManip};

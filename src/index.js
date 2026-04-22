@@ -252,6 +252,10 @@ const init = () => {
     // ready button
     const readyButton = document.querySelector(".ready-button");
     readyButton.addEventListener("click", readyButtonClicked);
+
+    // gadget icon
+    const abilityIcon = document.querySelector(".ability-icon");
+    abilityIcon.addEventListener("click", domManip.toggleAbilityActive);
 }
 init();
 
