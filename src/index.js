@@ -268,7 +268,10 @@ const gadgetIconClicked = () => {
     params.game.isP1Turn ? player = params.game.p1 : player = params.game.p2;
     if(!player.abilityAvailable) return;
     domManip.toggleAbilityActive();
-    if(player.abilityTurns > 0 && player.abilityCancelable) {
+    if(player.character === "aikawa") {
+        player.abilityCancelable = false;
+        // reveal random enemy ship
+    } if(player.abilityTurns > 0 && player.abilityCancelable) {
         cancelGadget(player);
     } else {
         useGadget(player);
@@ -280,19 +283,50 @@ const useGadget = (player) => {
         player.abilityTurns = 1;
     } else {
         player.abilityTurns = 3;
-    }  
+    }
+    if(player.character === "aikawa") {
+        revealRandomShipSquare();
+    }
 }
 
 const cancelGadget = (player) => {
-    // if(player.character === "shrapnel" && player.abilityAvailable === true) {
-    //     player.abilityTurns = 0;
-    // } else if(player.character === "yelena") {
-    //     // yelena gadget reverse fn
-    // } else {
-    //     // aikawa gadget reverse fn
-    // }
     if(player.abilityAvailable === true) {
         player.abilityTurns = 0;
+    }
+}
+
+const revealRandomShipSquare = () => {
+    let enemyBoard;
+    let enemyPlayerNum = "";
+    let enemyPlayer;
+    const ships = [];
+    if(params.game.isP1Turn) {
+        enemyBoard = params.game.p2.board.board;
+        enemyPlayerNum = "p2";
+        enemyPlayer = params.game.p2;
+    } else {
+        enemyBoard = params.game.p1.board.board;
+        enemyPlayerNum = "p1";  
+        enemyPlayer = params.game.p1;   
+    }
+    for(let i = 0; i < enemyBoard.length; i++) {
+        for(let j = 0; j < enemyBoard.length; j++) {
+            if(enemyBoard[i][j] !== null && enemyBoard[i][j] !== "X" && !enemyBoard[i][j].isSunk()) {
+                ships.push([enemyBoard[i][j], i, j]);
+            }
+        }
+    }
+    while(true) {
+        const shipIndex = Math.floor(Math.random() * ships.length);
+        const shipInfo = ships[shipIndex];
+        const shipNum = shipInfo[1] * 10 + shipInfo[2];
+        const shipDom = document.querySelector(`[data-block-num="${shipNum}"].${enemyPlayerNum}-block`);
+        if(shipDom.classList.contains("attacked-hit") || shipDom.classList.contains("attacked-miss")) {
+            ships.splice(shipIndex, 1);
+        } else {
+            revealBlock(enemyPlayer, shipDom, [shipInfo[1], shipInfo[2]]);
+            break;
+        }
     }
 }
 
