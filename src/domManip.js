@@ -176,6 +176,16 @@ const attackMiss = (block) => {
     block.innerHTML = "X";
 }
 
+const revealHit = (block) => {
+    block.classList.add("revealed-hit");
+    block.innerHTML = "!";
+}
+
+const revealMiss = (block) => {
+    block.classList.add("revealed-miss");
+    block.innerHTML = "-";
+}
+
 const sinkShip = (shipType) => {
     let domBoard;
     let dataBoard;
@@ -222,6 +232,6 @@ const newTurnAbilityIconCheck = (currPlayer) => {
 
 const domManip = {changeScreen, displayCharIcon, displayCharInfo, setupGrids, selectShip,
     hoverGridCell, unhoverGridCell, toggleCheckbox, placeShipDom, startGameDom, attackHit,
-    attackMiss, sinkShip, toggleAbilityActive, newTurnAbilityIconCheck
+    attackMiss, sinkShip, toggleAbilityActive, newTurnAbilityIconCheck, revealHit, revealMiss
 };
 export {domManip};

@@ -720,6 +720,13 @@ input:checked + .slider:before {
     background: rgba(13, 27, 42, 0.5);
 }
 
+.revealed-hit, .revealed-miss {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 700;
+    color: gray;
+}
+
 .attacked-hit, .attacked-miss {
     pointer-events: none;
     text-align: center;
@@ -738,3 +745,4 @@ input:checked + .slider:before {
 .attacked-sunk {
     color: #fff;
 }
+

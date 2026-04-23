@@ -198,8 +198,8 @@ const characters = [
 let game;
 // delete below later, for debugging
 game = new Game(true);
-game.p1 = new Player(true, "shrapnel");
-game.p2 = new Player(false, "yelena");
+game.p1 = new Player(true, "yelena");
+game.p2 = new Player(false, "shrapnel");
 
 const params = {Ship, Gameboard, Player, Game, characters, game};
 export {params};

@@ -115,6 +115,8 @@ const attackSquare = (event) => {
 
     if(attackingPlayer.character === "shrapnel" && attackingPlayer.abilityTurns > 0) {
         shrapnelAttack(attackedPlayer, row, col);
+    } else if(attackingPlayer.character === "yelena" && attackingPlayer.abilityTurns > 0) {
+        yelenaAttack(attackedPlayer, row, col, event);
     } else {
         normalAttack(attackedPlayer, row, col, event);
     }
@@ -162,7 +164,43 @@ const shrapnelAttack = (attackedPlayer, row, col) => {
             domManip.sinkShip(shipType);
         }
     }
-    console.log(attackedPlayer.board.board);
+}
+
+const yelenaAttack = (attackedPlayer, row, col, event) => {
+    console.log("yelena attack")
+    normalAttack(attackedPlayer, row, col, event);
+    const coords = [];
+    const domNums = [];
+    const domBlocks = [];
+    const coordMods = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+    coordMods.forEach(mod => {
+        if(row + mod[0] >= 0 && row + mod[0] <= 9 && col + mod[1] >= 0 && col + mod[1] <= 9) {
+            coords.push([row + mod[0], col + mod[1]]);
+        }
+    });
+    coords.forEach(coord => {
+        domNums.push((coord[0] * 10) + coord[1]);
+    });
+    let receivingPlayer = "";
+    params.game.isP1Turn ? receivingPlayer = "p2" : receivingPlayer = "p1";
+    domNums.forEach(num => {
+        const block = document.querySelector(`[data-block-num="${num}"].${receivingPlayer}-block`);
+        domBlocks.push(block);
+    });
+    for(let i = 0; i < coords.length; i++) {
+        if(!domBlocks[i].classList.contains("attacked-hit") && !domBlocks[i].classList.contains("attacked-miss")
+        && !domBlocks[i].classList.contains("attacked-sunk")) {
+            revealBlock(attackedPlayer, domBlocks[i], coords[i]);
+        }
+    }
+}
+
+const revealBlock = (attackedPlayer, block, coords) => {
+    if(attackedPlayer.board.board[coords[0]][coords[1]]) {
+        domManip.revealHit(block);
+    } else {
+        domManip.revealMiss(block);
+    }
 }
 
 const randomAttack = () => {
@@ -233,7 +271,7 @@ const useGadget = (player) => {
     if(player.character === "shrapnel" && player.abilityAvailable === true) {
         player.abilityTurns = 1;
     } else if(player.character === "yelena") {
-        // yelena gadget fn
+        player.abilityTurns = 3;
     } else {
         // aikawa gadget fn
     }
