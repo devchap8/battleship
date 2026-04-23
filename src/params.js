@@ -126,16 +126,14 @@ class Gameboard {
 }
 
 class Player {
-    #realPlayer;
     constructor(realPlayer, character) {
-        this.#realPlayer = realPlayer;
+        this.realPlayer = realPlayer;
         this.board = new Gameboard();
         this.character = character;
         this.charInfo = this.getCharInfo(character);
         this.abilityAvailable = true;
         this.abilityTurns = 0;
     }
-    getRealPlayer = () => this.#realPlayer;
     getCharInfo = (character) => {
         for(let char of characters) {
             if(char.id === character) {

@@ -123,7 +123,7 @@ const attackSquare = (event) => {
     if(attackingPlayer.character === "shrapnel" && attackingPlayer.abilityTurns > 0) {
         shrapnelAttack(attackedPlayer, row, col);
     } else {
-        normalAttack(attackedPlayer, row, col);
+        normalAttack(attackedPlayer, row, col, event);
     }
 
     if(attackedPlayer.board.getShipSpaces() < 1) {
@@ -133,23 +133,16 @@ const attackSquare = (event) => {
     }
 }
 
-const normalAttack = (attackedPlayer, row, col) => {
+const normalAttack = (attackedPlayer, row, col, event) => {
     const hitInfo = attackedPlayer.board.receiveAttack(row, col);
     hitInfo.wasHit ? domManip.attackHit(event.target) : domManip.attackMiss(event.target);
     if( hitInfo.wasSunk) {
         const shipType  = attackedPlayer.board.board[row][col].type;
         domManip.sinkShip(shipType);
-
     }
 }
 
 const shrapnelAttack = (attackedPlayer, row, col) => {
-    // make a list of dataCoords and domNums and domBlocks
-    // for every block surrounding [row, col], if in range, add row and col to dataCoords
-    // for every coord of dataCoords, add row * 2 + col to domNums
-    // for every num of domNums, query select block of num and add to domBlocks
-    // for every cood of dataCoords, attack the square in data
-        // depending on hitinfo, change the square in dom with the index from the list
     const dataCoords = [];
     const domNums = [];
     const domBlocks = [];
@@ -162,13 +155,21 @@ const shrapnelAttack = (attackedPlayer, row, col) => {
     dataCoords.forEach(coord => {
         domNums.push((coord[0] * 10) + coord[1]);
     });
+    let receivingPlayer = "";
+    params.game.isP1Turn ? receivingPlayer = "p2" : receivingPlayer = "p1";
     domNums.forEach(num => {
-        const block = document.querySelector(`[data-block-num="${num}"]`);
+        const block = document.querySelector(`[data-block-num="${num}"].${receivingPlayer}-block`);
         domBlocks.push(block);
     });
-    console.log(dataCoords);
-    console.log(domNums);
-    console.log(domBlocks);
+    for(let i = 0; i < dataCoords.length; i++) {
+        const hitInfo = attackedPlayer.board.receiveAttack(dataCoords[i][0], dataCoords[i][1]);
+        hitInfo.wasHit ? domManip.attackHit(domBlocks[i]) : domManip.attackMiss(domBlocks[i]);
+        if(hitInfo.wasSunk) {
+            const shipType  = attackedPlayer.board.board[dataCoords[i][0]][dataCoords[i][1]].type;
+            domManip.sinkShip(shipType);
+        }
+    }
+    console.log(attackedPlayer.board.board);
 }
 
 const randomAttack = () => {
@@ -191,7 +192,7 @@ const randomAttack = () => {
         if(params.game.p1.board.getShipSpaces() < 1) {
             gameWon(params.game.p2);
         } else {
-            newTurn;
+            newTurn();
         }   
     }, 0);
 // ^^^ Increase delay to 500ms after testing is done
@@ -200,10 +201,19 @@ const randomAttack = () => {
 const newTurn = () => {
     params.game.isP1Turn = !params.game.isP1Turn;
     params.game.turn++;
-    if(params.game.isSingleplayer) {
+    let currPlayer;
+    params.game.isP1Turn ? currPlayer = params.game.p1 : currPlayer = params.game.p2;
+    // skip shrapnel turn after ability used
+    if(currPlayer.character === "shrapnel" && currPlayer.abilityTurns > 0) {
+        setTimeout(() => {
+            currPlayer.abilityTurns--;
+            // display shrapnel dialogue
+            newTurn();
+        }, 1000)
+    }
+    else if(params.game.isSingleplayer && !currPlayer.realPlayer) {
         randomAttack();
-        params.game.turn++;
-        params.game.isP1Turn = !params.game.isP1Turn;
+
     } 
 }
 
