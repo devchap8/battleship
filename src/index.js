@@ -113,28 +113,32 @@ const attackSquare = (event) => {
         attackingPlayer = params.game.p2;
     }
 
+    let aikawaHit;
     if(attackingPlayer.character === "shrapnel" && attackingPlayer.abilityTurns > 0) {
         shrapnelAttack(attackedPlayer, row, col);
     } else if(attackingPlayer.character === "yelena" && attackingPlayer.abilityTurns > 0) {
-        yelenaAttack(attackedPlayer, row, col, event);
+        yelenaAttack(attackedPlayer, row, col, event, attackingPlayer);
     } else {
-        normalAttack(attackedPlayer, row, col, event);
+        aikawaHit = normalAttack(attackedPlayer, row, col, event, attackingPlayer);
     }
 
     if(attackedPlayer.board.getShipSpaces() < 1) {
         params.game.isP1Turn ? gameWon(params.game.p1) : gameWon(params.game.p2);
-    } else {
+    } else if(!aikawaHit) {
         newTurn();
     }
 }
 
-const normalAttack = (attackedPlayer, row, col, event) => {
+const normalAttack = (attackedPlayer, row, col, event, attackingPlayer) => {
     const hitInfo = attackedPlayer.board.receiveAttack(row, col);
     hitInfo.wasHit ? domManip.attackHit(event.target) : domManip.attackMiss(event.target);
     if( hitInfo.wasSunk) {
         const shipType  = attackedPlayer.board.board[row][col].type;
         domManip.sinkShip(shipType);
+    } if(hitInfo.wasHit && attackingPlayer.character === "aikawa" && attackingPlayer.abilityTurns > 0) {
+        return true;
     }
+    return false;
 }
 
 const shrapnelAttack = (attackedPlayer, row, col) => {
@@ -166,9 +170,9 @@ const shrapnelAttack = (attackedPlayer, row, col) => {
     }
 }
 
-const yelenaAttack = (attackedPlayer, row, col, event) => {
+const yelenaAttack = (attackedPlayer, row, col, event, attackingPlayer) => {
     console.log("yelena attack")
-    normalAttack(attackedPlayer, row, col, event);
+    normalAttack(attackedPlayer, row, col, event, attackingPlayer);
     const coords = [];
     const domNums = [];
     const domBlocks = [];
@@ -244,7 +248,8 @@ const newTurn = () => {
             // display shrapnel dialogue
             newTurn();
         }, 1000)
-    } else if(currPlayer.character === "yelena" && currPlayer.abilityTurns > 0) {
+    } else if((currPlayer.character === "yelena" || currPlayer.character === "aikawa") 
+    && currPlayer.abilityTurns > 0) {
         currPlayer.abilityTurns--;
         currPlayer.abilityCancelable = false;
         currPlayer.abilityAvailable = false;
@@ -271,13 +276,11 @@ const gadgetIconClicked = () => {
 }
 
 const useGadget = (player) => {
-    if(player.character === "shrapnel" && player.abilityAvailable === true) {
+    if(player.character === "shrapnel") {
         player.abilityTurns = 1;
-    } else if(player.character === "yelena") {
-        player.abilityTurns = 3;
     } else {
-        // aikawa gadget fn
-    }
+        player.abilityTurns = 3;
+    }  
 }
 
 const cancelGadget = (player) => {
