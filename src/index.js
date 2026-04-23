@@ -203,6 +203,7 @@ const newTurn = () => {
     params.game.turn++;
     let currPlayer;
     params.game.isP1Turn ? currPlayer = params.game.p1 : currPlayer = params.game.p2;
+    if(currPlayer.isRealPlayer) domManip.newTurnAbilityIconCheck(currPlayer);
     // skip shrapnel turn after ability used
     if(currPlayer.character === "shrapnel" && currPlayer.abilityTurns > 0) {
         setTimeout(() => {
@@ -211,7 +212,7 @@ const newTurn = () => {
             newTurn();
         }, 1000)
     }
-    else if(params.game.isSingleplayer && !currPlayer.realPlayer) {
+    else if(params.game.isSingleplayer && !currPlayer.isRealPlayer) {
         randomAttack();
 
     } 

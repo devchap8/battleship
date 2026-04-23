@@ -127,7 +127,7 @@ class Gameboard {
 
 class Player {
     constructor(realPlayer, character) {
-        this.realPlayer = realPlayer;
+        this.isRealPlayer = realPlayer;
         this.board = new Gameboard();
         this.character = character;
         this.charInfo = this.getCharInfo(character);

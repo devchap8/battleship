@@ -209,8 +209,18 @@ const toggleAbilityActive = () => {
         : abilityBox.classList.add("ability-active");
 }
 
+const newTurnAbilityIconCheck = (currPlayer) => {
+    // if icon is toggled on and player does not have ability
+    // if icon is toggled off and player has ability
+    if(abilityBox.classList.contains("ability-active") && currPlayer.abilityTurns < 1) {
+        toggleAbilityActive();
+    } else if(!abilityBox.classList.contains("ability-active") && currPlayer.abilityTurns > 0) {
+        toggleAbilityActive();
+    }
+}
+
 const domManip = {changeScreen, displayCharIcon, displayCharInfo, setupGrids, selectShip,
     hoverGridCell, unhoverGridCell, toggleCheckbox, placeShipDom, startGameDom, attackHit,
-    attackMiss, sinkShip, toggleAbilityActive
+    attackMiss, sinkShip, toggleAbilityActive, newTurnAbilityIconCheck
 };
 export {domManip};
