@@ -152,6 +152,7 @@ const startGameDom = () => {
     abilityContainer.classList.remove("hidden");
     phaseTitle.innerHTML = "PLAYER 1's TURN";
     phaseSubtitle.innerHTML = "Attack an enemy square";
+    console.log(params.game);
     showPlayerGameInfo(params.game.p1);
     p1Grid.classList.add("inactive-board");
     p2Grid.classList.add("active-board");

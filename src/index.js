@@ -10,14 +10,7 @@ const startSinglePlayer = () => {
 const selectChar = () => {
     const char = document.querySelector(".selectedChar");
     const charID = char.getAttribute("character-id");
-    let character;
-    for (let c of params.characters) {
-        if(c.id === charID) {
-            character = c;
-            break;
-        }
-    }
-    const player = new params.Player(true, character);
+    const player = new params.Player(true, charID);
     if (params.game.p1 !== null) {
         params.game.p2 = player;
         domManip.changeScreen("game-screen");
