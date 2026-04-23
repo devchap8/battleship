@@ -201,6 +201,8 @@ const newTurn = () => {
     if(currPlayer.character === "shrapnel" && currPlayer.abilityTurns > 0) {
         setTimeout(() => {
             currPlayer.abilityTurns--;
+            currPlayer.abilityCancelable = false;
+            currPlayer.abilityAvailable = false;
             // display shrapnel dialogue
             newTurn();
         }, 1000)
@@ -215,17 +217,35 @@ const gameWon = (player) => {
     alert(`${player.character} Wins!`)
 }
 
-const useGadget = () => {
+const gadgetIconClicked = () => {
     let player;
     params.game.isP1Turn ? player = params.game.p1 : player = params.game.p2;
     if(!player.abilityAvailable) return;
+    domManip.toggleAbilityActive();
+    if(player.abilityTurns > 0 && player.abilityCancelable) {
+        cancelGadget(player);
+    } else {
+        useGadget(player);
+    }
+}
+
+const useGadget = (player) => {
     if(player.character === "shrapnel" && player.abilityAvailable === true) {
-        player.abilityAvailable = false;
         player.abilityTurns = 1;
     } else if(player.character === "yelena") {
         // yelena gadget fn
     } else {
         // aikawa gadget fn
+    }
+}
+
+const cancelGadget = (player) => {
+    if(player.character === "shrapnel" && player.abilityAvailable === true) {
+        player.abilityTurns = 0;
+    } else if(player.character === "yelena") {
+        // yelena gadget reverse fn
+    } else {
+        // aikawa gadget reverse fn
     }
 }
 
@@ -273,10 +293,7 @@ const init = () => {
 
     // gadget icon
     const abilityIcon = document.querySelector(".ability-icon");
-    abilityIcon.addEventListener("click", () => {
-        domManip.toggleAbilityActive();
-        useGadget();
-    });
+    abilityIcon.addEventListener("click", gadgetIconClicked);
 }
 init();
 
