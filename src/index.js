@@ -244,10 +244,13 @@ const newTurn = () => {
             // display shrapnel dialogue
             newTurn();
         }, 1000)
+    } else if(currPlayer.character === "yelena" && currPlayer.abilityTurns > 0) {
+        currPlayer.abilityTurns--;
+        currPlayer.abilityCancelable = false;
+        currPlayer.abilityAvailable = false;
     }
     else if(params.game.isSingleplayer && !currPlayer.isRealPlayer) {
         randomAttack();
-
     } 
 }
 
@@ -278,12 +281,15 @@ const useGadget = (player) => {
 }
 
 const cancelGadget = (player) => {
-    if(player.character === "shrapnel" && player.abilityAvailable === true) {
+    // if(player.character === "shrapnel" && player.abilityAvailable === true) {
+    //     player.abilityTurns = 0;
+    // } else if(player.character === "yelena") {
+    //     // yelena gadget reverse fn
+    // } else {
+    //     // aikawa gadget reverse fn
+    // }
+    if(player.abilityAvailable === true) {
         player.abilityTurns = 0;
-    } else if(player.character === "yelena") {
-        // yelena gadget reverse fn
-    } else {
-        // aikawa gadget reverse fn
     }
 }
 
