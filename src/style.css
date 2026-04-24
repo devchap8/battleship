@@ -716,6 +716,10 @@ input:checked + .slider:before {
     opacity: .4;
 }
 
+.inactive {
+    pointer-events: none;
+}
+
 .active-board > div:hover {
     background: rgba(13, 27, 42, 0.5);
 }

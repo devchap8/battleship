@@ -22,6 +22,7 @@ const dialoguePortrait = document.querySelector(".dialogue-portrait > img");
 const speakerName = document.querySelector(".speaker-name");
 const tooltipGadgetName = document.querySelector("#ability-name");
 const tooltipGadgetDesc = document.querySelector("#ability-desc");
+const battlefieldContainer = document.querySelector(".battlefield-container");
 
 const changeScreen = (screenID) => {
     screenList.forEach(screen => {
@@ -230,8 +231,15 @@ const newTurnAbilityIconCheck = (currPlayer) => {
     }
 }
 
+const toggleBattlefieldActive = () => {
+    battlefieldContainer.classList.contains("inactive")
+        ? battlefieldContainer.classList.remove("inactive")
+        : battlefieldContainer.classList.add("inactive");
+}
+
 const domManip = {changeScreen, displayCharIcon, displayCharInfo, setupGrids, selectShip,
     hoverGridCell, unhoverGridCell, toggleCheckbox, placeShipDom, startGameDom, attackHit,
-    attackMiss, sinkShip, toggleAbilityActive, newTurnAbilityIconCheck, revealHit, revealMiss
+    attackMiss, sinkShip, toggleAbilityActive, newTurnAbilityIconCheck, revealHit, revealMiss,
+    toggleBattlefieldActive
 };
 export {domManip};

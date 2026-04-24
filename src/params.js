@@ -134,6 +134,11 @@ class Player {
         this.abilityAvailable = true;
         this.abilityTurns = 0;
         this.abilityCancelable = true;
+        this.aiInfo = {};
+        if(!this.isRealPlayer) {
+            const abilityUseTurn = Math.floor(Math.random() * 3 + 1);
+            this.aiInfo.abilityUseTurn = abilityUseTurn;
+        }
     }
     getCharInfo = (character) => {
         for(let char of characters) {
@@ -198,7 +203,7 @@ const characters = [
 let game;
 // delete below later, for debugging
 game = new Game(true);
-game.p1 = new Player(true, "aikawa");
+game.p1 = new Player(true, "yelena");
 game.p2 = new Player(false, "shrapnel");
 
 const params = {Ship, Gameboard, Player, Game, characters, game};
