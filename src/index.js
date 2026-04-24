@@ -273,7 +273,7 @@ const newTurn = () => {
         currPlayer.abilityCancelable = false;
         currPlayer.abilityAvailable = false;
     }
-    else if(params.game.isSingleplayer && !currPlayer.isRealPlayer) {
+    if(params.game.isSingleplayer && !currPlayer.isRealPlayer) {
         computerEnemyLogic();
     } 
 }
