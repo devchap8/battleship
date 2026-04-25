@@ -153,6 +153,7 @@ const normalAttack = (attackedPlayer, row, col, hitBlock, attackingPlayer) => {
     if( hitInfo.wasSunk) {
         const shipType  = attackedPlayer.board.board[row][col].type;
         domManip.sinkShip(shipType);
+        if(!params.game.isP1Turn && !params.game.p2.isRealPlayer) untrackHitShip(shipType);
     } if(hitInfo.wasHit && attackingPlayer.character === "aikawa" && attackingPlayer.abilityTurns > 0) {
         return true;
     }
@@ -195,6 +196,7 @@ const shrapnelAttack = (attackedPlayer, row, col) => {
         if(hitInfo.wasSunk) {
             const shipType  = attackedPlayer.board.board[dataCoords[i][0]][dataCoords[i][1]].type;
             domManip.sinkShip(shipType);
+            if(!params.game.isP1Turn && !params.game.p2.isRealPlayer) untrackHitShip(shipType);
         }
     }
 }
@@ -283,6 +285,14 @@ const checkHitShipOrientation = (hitShip) => {
     let isHoriz;
     nums[0] % 10 === nums[1] % 10 ? isHoriz = false : isHoriz = true;
     ships.forEach(ship => ship.isHorizontal = isHoriz);
+}
+
+const untrackHitShip = (shipType) => {
+    const newHitShipList = [];
+    params.game.p2.aiInfo.hitShips.forEach(ship => {
+        if(ship.shipData.type !== shipType) newHitShipList.push(ship);
+    });
+    params.game.p2.aiInfo.hitShips = newHitShipList;
 }
 
 const newTurn = () => {
