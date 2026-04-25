@@ -132,8 +132,11 @@ const attackSquareUniversal = (target) => {
         params.game.isP1Turn ? gameWon(params.game.p1) : gameWon(params.game.p2);
     } else if(!aikawaHit) {
         newTurn();
+    } else if(aikawaHit && !attackingPlayer.isRealPlayer && attackingPlayer.abilityTurns > 0) {
+        setTimeout(() => {computerEnemyLogic()}, 1000);
+        // computerEnemyLogic();
     }
-}
+ }
 
 const normalAttack = (attackedPlayer, row, col, hitBlock, attackingPlayer) => {
     const hitInfo = attackedPlayer.board.receiveAttack(row, col);
@@ -313,6 +316,7 @@ const useGadget = (player) => {
     }
     if(player.character === "aikawa") {
         revealRandomShipSquare();
+        player.abilityAvailable = false;
     }
 }
 
