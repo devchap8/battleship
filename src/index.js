@@ -181,7 +181,17 @@ const shrapnelAttack = (attackedPlayer, row, col) => {
     });
     for(let i = 0; i < dataCoords.length; i++) {
         const hitInfo = attackedPlayer.board.receiveAttack(dataCoords[i][0], dataCoords[i][1]);
-        hitInfo.wasHit ? domManip.attackHit(domBlocks[i]) : domManip.attackMiss(domBlocks[i]);
+        if(hitInfo.wasHit) {
+            domManip.attackHit(domBlocks[i]);
+            if(!params.game.isP1Turn && !params.game.p2.isRealPlayer) {
+                const hitShip = {shipBlock: domBlocks[i], shipData: null, isHorizontal: null};
+                hitShip.shipData = shipDataFromDom(domBlocks[i], params.game.p1);
+                params.game.p2.aiInfo.hitShips.push(hitShip);
+                if (params.game.p2.aiInfo.hitShips.length > 1) checkHitShipOrientation(hitShip);
+            }
+        } else {
+            domManip.attackMiss(domBlocks[i]);
+        }
         if(hitInfo.wasSunk) {
             const shipType  = attackedPlayer.board.board[dataCoords[i][0]][dataCoords[i][1]].type;
             domManip.sinkShip(shipType);
