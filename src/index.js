@@ -139,7 +139,17 @@ const attackSquareUniversal = (target) => {
 
 const normalAttack = (attackedPlayer, row, col, hitBlock, attackingPlayer) => {
     const hitInfo = attackedPlayer.board.receiveAttack(row, col);
-    hitInfo.wasHit ? domManip.attackHit(hitBlock) : domManip.attackMiss(hitBlock);
+    if(hitInfo.wasHit) {
+        domManip.attackHit(hitBlock);
+        if(!attackingPlayer.isRealPlayer) {
+            const hitShip = {shipBlock: hitBlock, shipData: null, isHorizontal: null};
+            hitShip.shipData = shipDataFromDom(hitBlock, attackedPlayer);
+            attackingPlayer.aiInfo.hitShips.push(hitShip);
+            if(attackingPlayer.aiInfo.hitShips.length > 1) checkHitShipOrientation(hitShip);
+        }
+    } else {    
+        domManip.attackMiss(hitBlock);
+    }
     if( hitInfo.wasSunk) {
         const shipType  = attackedPlayer.board.board[row][col].type;
         domManip.sinkShip(shipType);
@@ -208,6 +218,13 @@ const yelenaAttack = (attackedPlayer, row, col, hitBlock, attackingPlayer) => {
     }
 }
 
+const shipDataFromDom = (shipBlock, player) => {
+    const shipNum = shipBlock.getAttribute("data-block-num");
+    const row = Math.floor(shipNum / 10);
+    const col = shipNum % 10;
+    return player.board.board[row][col];
+}
+
 const revealBlock = (attackedPlayer, block, coords) => {
     let attackingPlayer;
     attackedPlayer === params.game.p1 ? attackingPlayer = params.game.p2 : attackingPlayer = params.game.p1;
@@ -241,14 +258,28 @@ const computerEnemyLogic = () => {
         attackSquareUniversal(player.aiInfo.revealedShips.pop());
     } else {
         randomAttack();
-    }
-    
+    } 
+}
+
+const checkHitShipOrientation = (hitShip) => {
+    const ships = [];
+    const nums = [];
+    params.game.p2.aiInfo.hitShips.forEach(ship => {
+        if(ship.shipData.type === hitShip.shipData.type) {
+            nums.push(ship.shipBlock.getAttribute("data-block-num"));
+            ships.push(ship);
+        }});
+    if(ships.length < 2) return;
+    let isHoriz;
+    nums[0] % 10 === nums[1] % 10 ? isHoriz = false : isHoriz = true;
+    ships.forEach(ship => ship.isHorizontal = isHoriz);
 }
 
 const newTurn = () => {
     params.game.isP1Turn = !params.game.isP1Turn;
     params.game.turn++;
     console.log(params.game.turn);
+    console.log(params.game.p2.aiInfo.hitShips);
     let currPlayer;
     params.game.isP1Turn ? currPlayer = params.game.p1 : currPlayer = params.game.p2;
     if(currPlayer.isRealPlayer) domManip.newTurnAbilityIconCheck(currPlayer); 
