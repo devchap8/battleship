@@ -207,10 +207,14 @@ const yelenaAttack = (attackedPlayer, row, col, hitBlock, attackingPlayer) => {
 }
 
 const revealBlock = (attackedPlayer, block, coords) => {
+    let attackingPlayer;
+    attackedPlayer === params.game.p1 ? attackingPlayer = params.game.p2 : attackingPlayer = params.game.p1;
     if(attackedPlayer.board.board[coords[0]][coords[1]]) {
         domManip.revealHit(block);
+        if(!attackingPlayer.isRealPlayer) attackingPlayer.aiInfo.revealedShips.push(block);
     } else {
         domManip.revealMiss(block);
+        if(!attackingPlayer.isRealPlayer) attackingPlayer.aiInfo.revealedEmptySpaces.push(block);
     }
 }
 
@@ -226,11 +230,17 @@ const randomAttack = () => {
 }
 
 const computerEnemyLogic = () => {
-    if(Math.floor(params.game.turn / 2) >= params.game.p2.aiInfo.abilityUseTurn
-    && params.game.p2.abilityAvailable) {
-        useGadget(params.game.p2);
+    const player = params.game.p2;
+    if(Math.floor(params.game.turn / 2) >= player.aiInfo.abilityUseTurn
+    && player.abilityAvailable) {
+        useGadget(player);
     }
-    randomAttack();
+    if(player.aiInfo.revealedShips.length > 0) {
+        attackSquareUniversal(player.aiInfo.revealedShips.pop());
+    } else {
+        randomAttack();
+    }
+    
 }
 
 const newTurn = () => {
@@ -275,7 +285,7 @@ const newTurn = () => {
 }
 
 const gameWon = (player) => {
-    alert(`${player.character} Wins!`)
+    alert(`${player.character} Wins!`);
 }
 
 const gadgetIconClicked = () => {
