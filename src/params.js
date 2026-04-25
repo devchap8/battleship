@@ -163,8 +163,8 @@ class Game {
 
     getRandomP2 = () => {
         let randChar = characters[Math.floor(Math.random() * 3)];
-        if (randChar.id !== this.p1.character.id) {
-            this.p2 = new Player(false, randChar);
+        if (randChar.id !== this.p1.character) {
+            this.p2 = new Player(false, randChar.id);
         } else this.getRandomP2();
     }
 }
@@ -203,8 +203,8 @@ const characters = [
 let game;
 // delete below later, for debugging
 game = new Game(true);
-game.p1 = new Player(true, "aikawa");
-game.p2 = new Player(false, "yelena");
+game.p1 = new Player(true, "yelena");
+game.p2 = new Player(false, "shrapnel");
 
 const params = {Ship, Gameboard, Player, Game, characters, game};
 export {params};

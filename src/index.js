@@ -120,7 +120,7 @@ const attackSquareUniversal = (target) => {
     }
 
     let aikawaHit;
-    if(attackingPlayer.character === "shrapnel" && attackingPlayer.abilityTurns > 0) {
+    if(attackingPlayer.character === "shrapnel" && attackingPlayer.abilityTurns > 0 && attackingPlayer.abilityAvailable) {
         shrapnelAttack(attackedPlayer, row, col);
     } else if(attackingPlayer.character === "yelena" && attackingPlayer.abilityTurns > 0) {
         yelenaAttack(attackedPlayer, row, col, block, attackingPlayer);
@@ -223,22 +223,6 @@ const randomAttack = () => {
         return;
     }
     attackSquareUniversal(block);
-    // setTimeout(() => {
-    //     const row = Math.floor(blockNum / 10);
-    //     const col = blockNum % 10;
-    //     const hitInfo = params.game.p1.board.receiveAttack(row, col);
-    //     hitInfo.wasHit ? domManip.attackHit(block) : domManip.attackMiss(block);
-    //     if( hitInfo.wasSunk) {
-    //         const shipType  = params.game.p1.board.board[row][col].type;
-    //         domManip.sinkShip(shipType);
-    //     }
-    //     if(params.game.p1.board.getShipSpaces() < 1) {
-    //         gameWon(params.game.p2);
-    //     } else {
-    //         newTurn();
-    //     }   
-    // }, 0);
-// ^^^ Increase delay to 500ms after testing is done
 }
 
 const computerEnemyLogic = () => {
@@ -255,18 +239,30 @@ const newTurn = () => {
     console.log(params.game.turn);
     let currPlayer;
     params.game.isP1Turn ? currPlayer = params.game.p1 : currPlayer = params.game.p2;
-    if(currPlayer.isRealPlayer) domManip.newTurnAbilityIconCheck(currPlayer);
+    if(currPlayer.isRealPlayer) domManip.newTurnAbilityIconCheck(currPlayer); 
+    console.log(currPlayer);
     // skip shrapnel turn after ability used
     if(currPlayer.character === "shrapnel" && currPlayer.abilityTurns > 0) {
-        domManip.toggleBattlefieldActive();
-        setTimeout(() => {
+        if(currPlayer.isRealPlayer) {
+            domManip.toggleBattlefieldActive();
+            setTimeout(() => {
+                currPlayer.abilityTurns--;
+                currPlayer.abilityCancelable = false;
+                currPlayer.abilityAvailable = false;
+                // display shrapnel dialogue
+                domManip.toggleBattlefieldActive();
+                newTurn();
+                return;
+            }, 1000)
+        }
+        else {
             currPlayer.abilityTurns--;
             currPlayer.abilityCancelable = false;
             currPlayer.abilityAvailable = false;
             // display shrapnel dialogue
-            domManip.toggleBattlefieldActive();
             newTurn();
-        }, 1000)
+            return;
+        }
     } else if((currPlayer.character === "yelena" || currPlayer.character === "aikawa") 
     && currPlayer.abilityTurns > 0) {
         currPlayer.abilityTurns--;
@@ -298,7 +294,8 @@ const gadgetIconClicked = () => {
 }
 
 const useGadget = (player) => {
-    console.log("use gadget")
+    console.log("use gadget");
+    // if(!player.isRealPlayer) player.abilityAvailable = false;
     if(player.character === "shrapnel") {
         player.abilityTurns = 1;
     } else {
