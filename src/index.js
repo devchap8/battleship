@@ -134,7 +134,6 @@ const attackSquareUniversal = (target) => {
         newTurn();
     } else if(aikawaHit && !attackingPlayer.isRealPlayer && attackingPlayer.abilityTurns > 0) {
         setTimeout(() => {computerEnemyLogic()}, 1000);
-        // computerEnemyLogic();
     }
  }
 
@@ -225,7 +224,7 @@ const randomAttack = () => {
     const blockNum = Math.floor(Math.random() * 100);
     const block = document.querySelector(`#player-1-grid [data-block-num="${blockNum}"]`);
     if(block.classList.contains("attacked-hit") || block.classList.contains("attacked-miss") 
-    || block.classList.contains("attacked-sunk")) {
+    || block.classList.contains("attacked-sunk") || params.game.p2.aiInfo.revealedEmptySpaces.includes(block)) {
         randomAttack();
         return;
     }
