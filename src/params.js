@@ -150,6 +150,22 @@ class Player {
             }
         }
     }
+    getDirectionedShips = () => {
+        if(!this.aiInfo.hitShips) return null;
+        let dirShip;
+        for(let ship of this.aiInfo.hitShips) {
+            if(ship.isHorizontal !== null) {
+                dirShip = ship;
+                break;
+            }
+        }
+        if(!dirShip) return null;
+        const dirShips = [];
+        this.aiInfo.hitShips.forEach(ship => {
+            if(ship.shipData.type === dirShip.shipData.type) dirShips.push(ship);
+        });
+        return dirShips;
+    }
 }
 
 class Game {
@@ -206,8 +222,8 @@ const characters = [
 let game;
 // delete below later, for debugging
 game = new Game(true);
-game.p1 = new Player(true, "aikawa");
-game.p2 = new Player(false, "shrapnel");
+game.p1 = new Player(true, "shrapnel");
+game.p2 = new Player(false, "aikawa");
 
 const params = {Ship, Gameboard, Player, Game, characters, game};
 export {params};

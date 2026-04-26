@@ -142,7 +142,7 @@ const normalAttack = (attackedPlayer, row, col, hitBlock, attackingPlayer) => {
     if(hitInfo.wasHit) {
         domManip.attackHit(hitBlock);
         if(!attackingPlayer.isRealPlayer) {
-            const hitShip = {shipBlock: hitBlock, shipData: null, isHorizontal: null};
+            const hitShip = {shipBlock: hitBlock, shipData: null, isHorizontal: null, adjacentHittable: true};
             hitShip.shipData = shipDataFromDom(hitBlock, attackedPlayer);
             attackingPlayer.aiInfo.hitShips.push(hitShip);
             if(attackingPlayer.aiInfo.hitShips.length > 1) checkHitShipOrientation(hitShip);
@@ -185,7 +185,7 @@ const shrapnelAttack = (attackedPlayer, row, col) => {
         if(hitInfo.wasHit) {
             domManip.attackHit(domBlocks[i]);
             if(!params.game.isP1Turn && !params.game.p2.isRealPlayer) {
-                const hitShip = {shipBlock: domBlocks[i], shipData: null, isHorizontal: null};
+                const hitShip = {shipBlock: domBlocks[i], shipData: null, isHorizontal: null, adjacentHittable: true};
                 hitShip.shipData = shipDataFromDom(domBlocks[i], params.game.p1);
                 params.game.p2.aiInfo.hitShips.push(hitShip);
                 if (params.game.p2.aiInfo.hitShips.length > 1) checkHitShipOrientation(hitShip);
@@ -270,12 +270,20 @@ const computerEnemyLogic = () => {
         attackSquareUniversal(player.aiInfo.revealedShips.pop());
     } else if(player.aiInfo.hitShips.length > 0) {
         // check if a ship has isHorizontal declared
+        const dirShips = params.game.p2.getDirectionedShips();
+        console.log(dirShips);
         // if not:
-        let adjBlock;
+        let hitShip, adjBlock;
         while(!adjBlock) {
-            adjBlock = getRandomAdjacent(player.aiInfo.hitShips[0]);
+            for(let ship of player.aiInfo.hitShips) {
+                if(ship.adjacentHittable) {
+                    hitShip = ship;
+                    break;
+                }
+            }
+            adjBlock = getRandomAdjacent(hitShip);
             if(!adjBlock) {
-                player.aiInfo.hitShips.shift();
+                hitShip.adjacentHittable = false;
                 console.log("shifting hitShip list");
                 continue;
             }
@@ -309,21 +317,6 @@ const getRandomAdjacent = (ship) => {
         }
         break;
     }
-
-    // while(numMods.length > 0) {
-    //     const randIndex = Math.floor(Math.random() * numMods.length);
-    //     if(shipNum + numMods[randIndex] < 0 || shipNum + numMods[randIndex] > 99) {
-    //         numMods = numMods.splice(randIndex, 1);
-    //         continue;
-    //     }
-    //     adjacentBlock = document.querySelector(`#player-1-grid [data-block-num="${+shipNum + +numMods[randIndex]}"]`);
-    //     if(adjacentBlock.classList.contains("attacked-hit") || adjacentBlock.classList.contains("attacked-miss") 
-    //     || adjacentBlock.classList.contains("revealed-miss")) {
-    //         numMods.splice(randIndex, 1);
-    //         continue;
-    //     }
-    //     break;
-    // }
     if(badMoveCount > 3) return null
     console.log(adjacentBlock);
     return adjacentBlock
