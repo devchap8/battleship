@@ -268,9 +268,65 @@ const computerEnemyLogic = () => {
     }
     if(player.aiInfo.revealedShips.length > 0) {
         attackSquareUniversal(player.aiInfo.revealedShips.pop());
+    } else if(player.aiInfo.hitShips.length > 0) {
+        // check if a ship has isHorizontal declared
+        // if not:
+        let adjBlock;
+        while(!adjBlock) {
+            adjBlock = getRandomAdjacent(player.aiInfo.hitShips[0]);
+            if(!adjBlock) {
+                player.aiInfo.hitShips.shift();
+                console.log("shifting hitShip list");
+                continue;
+            }
+            break;
+        }
+        attackSquareUniversal(adjBlock);
     } else {
         randomAttack();
     } 
+}
+
+const getRandomAdjacent = (ship) => {
+    const shipNum = ship.shipBlock.getAttribute("data-block-num");
+    let numMods = [-10, 10, -1, 1];
+    numMods = numMods.sort(() => Math.random() - .5);
+    let adjacentBlock;
+    let badMoveCount = 0;
+    for(let num of numMods) {
+        
+        if(parseInt(shipNum) + parseInt(num) < 0 || parseInt(shipNum) + parseInt(num) > 99) {
+            console.log(`Num: ${num} out of range ()`);
+            badMoveCount++;
+            continue;
+        } 
+        adjacentBlock = document.querySelector(`#player-1-grid [data-block-num="${parseInt(shipNum) + parseInt(num)}"]`);
+        if(adjacentBlock.classList.contains("attacked-hit") || adjacentBlock.classList.contains("attacked-miss") 
+        || adjacentBlock.classList.contains("revealed-miss")) {
+            console.log(`Num: ${num} failed class check`);
+            badMoveCount++;
+            continue;
+        }
+        break;
+    }
+
+    // while(numMods.length > 0) {
+    //     const randIndex = Math.floor(Math.random() * numMods.length);
+    //     if(shipNum + numMods[randIndex] < 0 || shipNum + numMods[randIndex] > 99) {
+    //         numMods = numMods.splice(randIndex, 1);
+    //         continue;
+    //     }
+    //     adjacentBlock = document.querySelector(`#player-1-grid [data-block-num="${+shipNum + +numMods[randIndex]}"]`);
+    //     if(adjacentBlock.classList.contains("attacked-hit") || adjacentBlock.classList.contains("attacked-miss") 
+    //     || adjacentBlock.classList.contains("revealed-miss")) {
+    //         numMods.splice(randIndex, 1);
+    //         continue;
+    //     }
+    //     break;
+    // }
+    if(badMoveCount > 3) return null
+    console.log(adjacentBlock);
+    return adjacentBlock
 }
 
 const checkHitShipOrientation = (hitShip) => {
@@ -299,11 +355,9 @@ const newTurn = () => {
     params.game.isP1Turn = !params.game.isP1Turn;
     params.game.turn++;
     console.log(params.game.turn);
-    console.log(params.game.p2.aiInfo.hitShips);
     let currPlayer;
     params.game.isP1Turn ? currPlayer = params.game.p1 : currPlayer = params.game.p2;
     if(currPlayer.isRealPlayer) domManip.newTurnAbilityIconCheck(currPlayer); 
-    console.log(currPlayer);
     // skip shrapnel turn after ability used
     if(currPlayer.character === "shrapnel" && currPlayer.abilityTurns > 0) {
         if(currPlayer.isRealPlayer) {
