@@ -271,7 +271,22 @@ const computerEnemyLogic = () => {
     } else if(player.aiInfo.hitShips.length > 0) {
         // check if a ship has isHorizontal declared, and get all ships of that type
         const dirShips = params.game.p2.getDirectionedShips();
-        console.log(dirShips);
+        if(dirShips) {
+            const nums = dirShips.map(s => s.shipBlock.getAttribute("data-block-num"));
+            let mod;
+            dirShips[0].isHorizontal ? mod = 1 : mod = 10;
+            // if there is space between 2 blocks of same ship type, attack it
+            for(let i = 0; i < nums.length - 1; i++) {
+                if(+nums[i + 1] !== +nums[i] + +mod) {
+                    const block = document.querySelector(`#player-1-grid [data-block-num="${+nums[i] + mod}"]`);
+                    console.log("space", nums[i + 1], +nums[i] + +mod, block)
+                    // console.log(`Space Between`, block);
+                    attackSquareUniversal(block); 
+                    return;
+                }
+            }
+
+        }
         // if not:
         let hitShip, adjBlock;
         while(!adjBlock) {
