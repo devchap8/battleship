@@ -269,7 +269,7 @@ const computerEnemyLogic = () => {
     if(player.aiInfo.revealedShips.length > 0) {
         attackSquareUniversal(player.aiInfo.revealedShips.pop());
     } else if(player.aiInfo.hitShips.length > 0) {
-        // check if a ship has isHorizontal declared
+        // check if a ship has isHorizontal declared, and get all ships of that type
         const dirShips = params.game.p2.getDirectionedShips();
         console.log(dirShips);
         // if not:
@@ -284,7 +284,6 @@ const computerEnemyLogic = () => {
             adjBlock = getRandomAdjacent(hitShip);
             if(!adjBlock) {
                 hitShip.adjacentHittable = false;
-                console.log("shifting hitShip list");
                 continue;
             }
             break;

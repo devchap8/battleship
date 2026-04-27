@@ -164,7 +164,7 @@ class Player {
         this.aiInfo.hitShips.forEach(ship => {
             if(ship.shipData.type === dirShip.shipData.type) dirShips.push(ship);
         });
-        return dirShips;
+        return dirShips.sort((a, b) => a.shipBlock.getAttribute("data-block-num") - b.shipBlock.getAttribute("data-block-num"));
     }
 }
 
