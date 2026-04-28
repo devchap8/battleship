@@ -269,6 +269,10 @@ Character Select Screen
     background: rgba(255, 255, 255, .2);
 }
 
+.hidden-char-icon {
+    display: none;
+}
+
 /* Character Info Screen */
 
 .character-info {
@@ -731,7 +735,7 @@ input:checked + .slider:before {
     color: gray;
 }
 
-.attacked-hit, .attacked-miss {
+.attacked-hit, .attacked-miss, .attacked-sunk {
     pointer-events: none;
     text-align: center;
     font-size: 3rem;

@@ -7,22 +7,33 @@ const startSinglePlayer = () => {
     domManip.changeScreen("character-select-screen");
 }
 
+const startTwoPlayer = () => {
+    params.game = new params.Game(false);
+    domManip.changeScreen("character-select-screen");
+}
+
 const selectChar = () => {
     const char = document.querySelector(".selectedChar");
     const charID = char.getAttribute("character-id");
     const player = new params.Player(true, charID);
     if (params.game.p1 !== null) {
+        // game is 2 player and p2 selects character
         params.game.p2 = player;
         domManip.changeScreen("game-screen");
+        document.querySelector(".hidden-char-icon").classList.remove("hidden-char-icon");
+        console.log(params.game);
+    } else if(params.game.p1 == null && !params.game.isSingleplayer) {
+        // game is 2p, p1 selects character
+        char.classList.remove("selectedChar");
+        char.classList.add("hidden-char-icon");
+        params.game.p1 = player;
+        autoSelectNewIcon();
     } else if (params.game.p1 === null && params.game.isSingleplayer) {
+        // game is 1p, p1 selects char, select random char for bot
         params.game.p1 = player;
         params.game.getRandomP2();
         domManip.changeScreen("game-screen");
-    } else {
-        // game is 2p and player selected p1
-        // remove selected char from sidebar and let p2 select
-        // move screens
-    }
+    } 
 }
 
 const charIconClicked = (icon) => {
@@ -37,6 +48,14 @@ const charIconClicked = (icon) => {
         }
     }
     domManip.displayCharInfo(char);
+}
+
+const autoSelectNewIcon = () => {
+    const shrapnelIcon = document.querySelector('[character-id="shrapnel"]');
+    const yelenaIcon = document.querySelector('[character-id="yelena"]');
+    shrapnelIcon.classList.contains("hidden-char-icon")
+        ? charIconClicked(yelenaIcon)
+        : charIconClicked(shrapnelIcon);
 }
 
 const placeShip = (event) => {
@@ -285,7 +304,24 @@ const computerEnemyLogic = () => {
                     return;
                 }
             }
-
+            // else choose 1 adjacent side and attack
+            let numsIndex;
+            if(Math.random() > .5) {
+                mod *= -1;
+                numsIndex = 0;
+            } else {
+                numsIndex = nums.length - 1;
+            }
+            let block = document.querySelector(`#player-1-grid [data-block-num="${+nums[numsIndex] + mod}"]`);
+            if(!(block.classList.contains("attacked-hit") || block.classList.contains("attacked-miss") 
+            || block.classList.contains("revealed-miss"))) {
+                attackSquareUniversal(block);
+                return;
+            } else {
+                let block = document.querySelector(`#player-1-grid [data-block-num="${+nums[numsIndex] + (mod * -1)}"]`);
+                attackSquareUniversal(block);
+                return;
+            }
         }
         // if not:
         let hitShip, adjBlock;
@@ -476,6 +512,10 @@ const init = () => {
     // setup single player button event listener
     const singleplayerButton = document.querySelector(".singleplayer-button");
     singleplayerButton.addEventListener("click", startSinglePlayer);
+
+    // setup two player button event listener
+    const twoplayerButton = document.querySelector(".twoplayer-button");
+    twoplayerButton.addEventListener("click", startTwoPlayer);
 
     // setup select character event listener
     const selectCharButton = document.querySelector(".select-character-button");
