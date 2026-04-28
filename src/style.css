@@ -403,10 +403,6 @@ Game Screen
     border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* .grid-board div:hover {
-    background: rgba(24, 50, 78, 0.8);
-} */
-
 /* Ability / Tooltip */
 
 .ability-container {
@@ -571,6 +567,11 @@ Game Screen
 .grid-block.occupied-block {
     background-color: rgba(255, 255, 255, .1);
     border: 1px solid rgba(255, 255, 255, 0.75);
+}
+
+.grid-block.hidden-block {
+    background: rgba(13, 27, 42, 0.8) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
 }
 
 /* Reset Grid Button */
@@ -753,4 +754,6 @@ input:checked + .slider:before {
 .attacked-sunk {
     color: #fff;
 }
+
+
 

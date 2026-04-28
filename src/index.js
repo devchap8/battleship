@@ -97,7 +97,7 @@ const resetGrid = () => {
 }
 
 const readyButtonClicked = () => {
-    console.log(params.game.p2.board.board);
+    // console.log(params.game.p2.board.board);
     if(params.game.p1.board.getShipSpaces() < 17) return;
     if(!params.game.isSingleplayer && params.game.p1.board.getShipSpaces() < 17) return;
     // 3 cases:
@@ -106,7 +106,21 @@ const readyButtonClicked = () => {
         // 2p, p2 clicked
     if(params.game.isSingleplayer) {
         params.game.p2.board.makeRandomBoard();
+        startGame();
+    } else if(params.game.p2.board.getShipSpaces() < 1) { // 2p, player 1 ready
+        params.game.isP1Turn = false;
+        domManip.toggleHiddenShipBlocks();
+        domManip.toggleBattlefieldActive();
+        // hide p1 placed ships
+        // make p1 board un interactable
+        // make p2 board interactable
+
+    } else if(params.game.p2.board.getShipSpaces >= 17) { // 2p, player 2 ready
+
     }
+}
+
+const startGame = () => {
     domManip.startGameDom();
     addAttackEventListeners();
     params.game.isP1Turn = true;
@@ -396,6 +410,7 @@ const untrackHitShip = (shipType) => {
 
 const newTurn = () => {
     params.game.isP1Turn = !params.game.isP1Turn;
+    // if 2p game initiate 2p turn switch
     params.game.turn++;
     console.log(params.game.turn);
     let currPlayer;

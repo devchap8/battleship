@@ -237,9 +237,29 @@ const toggleBattlefieldActive = () => {
         : battlefieldContainer.classList.add("inactive");
 }
 
+const toggleHiddenShipBlocks = () => {
+    // this will always trigger after turns are switched, so if it is p1's turn, 
+        // it hides p2's blocks and shows p1's blocks
+    let activePlayer, inactivePlayer;
+    if(params.game.isP1Turn) {
+        activePlayer = "p1"
+        inactivePlayer = "p2"
+    } else {
+        activePlayer ="p2"
+        inactivePlayer = "p1"
+    }
+    // hide inactive player blocks and show active player blocks
+    const activeBlocks = Array.from(document.querySelectorAll(`.${activePlayer}-block.hidden-block`));
+    console.log(activeBlocks);
+    activeBlocks.forEach(block => block.classList.remove("hidden-block"));
+    const inactiveBlocks = Array.from(document.querySelectorAll(`.${inactivePlayer}-block.occupied-block`));
+    console.log(inactiveBlocks);
+    inactiveBlocks.forEach(block => block.classList.add("hidden-block"));
+}
+
 const domManip = {changeScreen, displayCharIcon, displayCharInfo, setupGrids, selectShip,
     hoverGridCell, unhoverGridCell, toggleCheckbox, placeShipDom, startGameDom, attackHit,
     attackMiss, sinkShip, toggleAbilityActive, newTurnAbilityIconCheck, revealHit, revealMiss,
-    toggleBattlefieldActive
+    toggleBattlefieldActive, toggleHiddenShipBlocks
 };
 export {domManip};
