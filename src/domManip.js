@@ -248,7 +248,6 @@ const toggleHiddenShipBlocks = () => {
         activePlayer ="p2"
         inactivePlayer = "p1"
     }
-    // hide inactive player blocks and show active player blocks
     const activeBlocks = Array.from(document.querySelectorAll(`.${activePlayer}-block.hidden-block`));
     console.log(activeBlocks);
     activeBlocks.forEach(block => block.classList.remove("hidden-block"));
@@ -257,9 +256,14 @@ const toggleHiddenShipBlocks = () => {
     inactiveBlocks.forEach(block => block.classList.add("hidden-block"));
 }
 
+const reactivateShipCards = () => {
+    const shipCards = Array.from(document.querySelectorAll(".ship-card"));
+    shipCards.forEach(card => card.classList.remove("card-placed"));
+}
+
 const domManip = {changeScreen, displayCharIcon, displayCharInfo, setupGrids, selectShip,
     hoverGridCell, unhoverGridCell, toggleCheckbox, placeShipDom, startGameDom, attackHit,
     attackMiss, sinkShip, toggleAbilityActive, newTurnAbilityIconCheck, revealHit, revealMiss,
-    toggleBattlefieldActive, toggleHiddenShipBlocks
+    toggleBattlefieldActive, toggleHiddenShipBlocks, reactivateShipCards
 };
 export {domManip};
