@@ -99,10 +99,6 @@ const resetGrid = () => {
 const readyButtonClicked = () => {
     if(params.game.p1.board.getShipSpaces() < 17) return;
     if(!params.game.isSingleplayer && params.game.p1.board.getShipSpaces() < 17) return;
-    // 3 cases:
-        // 1 player
-        // 2p, p1 clicked
-        // 2p, p2 clicked
     if(params.game.isSingleplayer) {
         params.game.p2.board.makeRandomBoard();
         startGame();
@@ -111,9 +107,6 @@ const readyButtonClicked = () => {
         domManip.toggleHiddenShipBlocks();
         domManip.reactivateShipCards();
         params.game.selectedShipLen = 0;
-        // hide p1 placed ships
-        // make p1 board un interactable
-        // make p2 board interactable
 
     } else if(params.game.p2.board.getShipSpaces() >= 17) { // 2p, player 2 ready
         startGame();
@@ -314,7 +307,7 @@ const computerEnemyLogic = () => {
             for(let i = 0; i < nums.length - 1; i++) {
                 if(+nums[i + 1] !== +nums[i] + +mod) {
                     const block = document.querySelector(`#player-1-grid [data-block-num="${+nums[i] + mod}"]`);
-                    console.log("space", nums[i + 1], +nums[i] + +mod, block)
+                    console.log("space", +nums[i + 1], +nums[i] + +mod, block)
                     // console.log(`Space Between`, block);
                     attackSquareUniversal(block); 
                     return;
@@ -339,7 +332,7 @@ const computerEnemyLogic = () => {
                 return;
             }
         }
-        // if not:
+        // if not horizontal, attack a random adjacent block:
         let hitShip, adjBlock;
         while(!adjBlock) {
             for(let ship of player.aiInfo.hitShips) {
@@ -412,11 +405,12 @@ const untrackHitShip = (shipType) => {
 
 const newTurn = () => {
     params.game.isP1Turn = !params.game.isP1Turn;
-    // if 2p game initiate 2p turn switch
     params.game.turn++;
     console.log(params.game.turn);
     let currPlayer;
     params.game.isP1Turn ? currPlayer = params.game.p1 : currPlayer = params.game.p2;
+    // if 2p game initiate 2p turn switch
+    if(!params.game.isSingleplayer) TwoPlayerNewTurn(currPlayer);
     if(currPlayer.isRealPlayer) domManip.newTurnAbilityIconCheck(currPlayer); 
     // skip shrapnel turn after ability used
     if(currPlayer.character === "shrapnel" && currPlayer.abilityTurns > 0) {
@@ -449,6 +443,12 @@ const newTurn = () => {
     if(params.game.isSingleplayer && !currPlayer.isRealPlayer) {
         computerEnemyLogic();
     } 
+}
+
+const TwoPlayerNewTurn = (currPlayer) => {
+    domManip.showPlayerGameInfo(currPlayer);
+    domManip.toggleHiddenShipBlocks();
+    domManip.toggleActiveBoard();
 }
 
 const gameWon = (player) => {

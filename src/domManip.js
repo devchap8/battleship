@@ -261,9 +261,24 @@ const reactivateShipCards = () => {
     shipCards.forEach(card => card.classList.remove("card-placed"));
 }
 
+const toggleActiveBoard = () => {
+    if(params.game.isP1Turn) {
+        p1Grid.classList.remove("active-board");
+        p2Grid.classList.remove("inactive-board");
+        p1Grid.classList.add("inactive-board");
+        p2Grid.classList.add("active-board");
+    } else {
+        p2Grid.classList.remove("active-board");
+        p1Grid.classList.remove("inactive-board");
+        p2Grid.classList.add("inactive-board");
+        p1Grid.classList.add("active-board");      
+    }
+}
+
 const domManip = {changeScreen, displayCharIcon, displayCharInfo, setupGrids, selectShip,
     hoverGridCell, unhoverGridCell, toggleCheckbox, placeShipDom, startGameDom, attackHit,
     attackMiss, sinkShip, toggleAbilityActive, newTurnAbilityIconCheck, revealHit, revealMiss,
-    toggleBattlefieldActive, toggleHiddenShipBlocks, reactivateShipCards
+    toggleBattlefieldActive, toggleHiddenShipBlocks, reactivateShipCards, showPlayerGameInfo,
+    toggleActiveBoard
 };
 export {domManip};
