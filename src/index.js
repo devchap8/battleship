@@ -169,7 +169,6 @@ const attackSquareUniversal = (target) => {
             attackedPlayer.abilityCancelable = false;
             attackedPlayer.abilityAvailable = false;
         }
-        // dont transition screen if shrapnel is recharging
         else  {
             passScreenTransition();
         } 
@@ -456,6 +455,7 @@ const newTurn = () => {
     if(params.game.isSingleplayer && !currPlayer.isRealPlayer) {
         computerEnemyLogic();
     } 
+    if(currPlayer.isRealPlayer) domManip.newTurnAbilityIconCheck(currPlayer); 
 }
 
 const TwoPlayerNewTurn = (currPlayer) => {
@@ -539,12 +539,14 @@ const revealRandomShipSquare = () => {
 }
 
 const passScreenTransition = () => {
+    domManip.toggleBattlefieldActive();
     // timeout so players can see if they hit or not before screen change 
     setTimeout(() => {
         // nested timeout so other board doesnt show before screen change
         domManip.changeScreen("pass-screen");
         setTimeout(() => {
             newTurn();
+            domManip.toggleBattlefieldActive();
         }, 500);
     }, 500);
 }
