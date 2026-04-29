@@ -465,7 +465,8 @@ const TwoPlayerNewTurn = (currPlayer) => {
 }
 
 const gameWon = (player) => {
-    alert(`${player.character} Wins!`);
+    domManip.changeScreen("victory-screen");
+    domManip.displayGameEndInfo(player);
 }
 
 const gadgetIconClicked = () => {

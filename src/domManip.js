@@ -23,7 +23,12 @@ const speakerName = document.querySelector(".speaker-name");
 const tooltipGadgetName = document.querySelector("#ability-name");
 const tooltipGadgetDesc = document.querySelector("#ability-desc");
 const battlefieldContainer = document.querySelector(".battlefield-container");
-const charSelectScreen = document.querySelector("#character-select-screen");
+const winnerPortrait = document.querySelector("#winner-img");
+const winnerPlayer = document.querySelector("#winner-name");
+const winnerCharacter = document.querySelector("#winner-character");
+const winnerSpeaker = document.querySelector("#winner-speaker");
+const finalTurns = document.querySelector("#final-turns");
+const victoryMessage = document.querySelector("#victory-quote");
 
 const changeScreen = (screenID) => {
     screenList.forEach(screen => {
@@ -276,12 +281,21 @@ const toggleActiveBoard = () => {
     }
 }
 
+const displayGameEndInfo = (player) => {
+    winnerPortrait.setAttribute("src", player.charInfo.icon);
+    player === params.game.p1 ? winnerPlayer.innerHTML = "PLAYER 1" : winnerPlayer.innerHTML = "PLAYER 2";
+    winnerCharacter.innerHTML = player.character.toUpperCase();
+    winnerSpeaker.innerHTML = player.character.toUpperCase();
+    finalTurns.innerHTML = +params.game.turn + 1;
+    victoryMessage.innerHTML = player.charInfo.victoryMessage
+}
+
 
 
 const domManip = {changeScreen, displayCharIcon, displayCharInfo, setupGrids, selectShip,
     hoverGridCell, unhoverGridCell, toggleCheckbox, placeShipDom, startGameDom, attackHit,
     attackMiss, sinkShip, toggleAbilityActive, newTurnAbilityIconCheck, revealHit, revealMiss,
     toggleBattlefieldActive, toggleHiddenShipBlocks, reactivateShipCards, showPlayerGameInfo,
-    toggleActiveBoard
+    toggleActiveBoard, displayGameEndInfo
 };
 export {domManip};

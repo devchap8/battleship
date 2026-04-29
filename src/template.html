@@ -169,5 +169,38 @@
             <button id="confirm-pass-btn" class="ready-button">RESUME COMMAND</button>
         </div>
     </section>
+
+    <section id="victory-screen" class="screen">
+        <div class="background-image-container"></div>
+        
+        <div class="victory-card">
+            <header class="victory-header">
+                <div class="secure-tag">BATTLE OVER</div>
+                <h1 id="victory-title">VICTORY</h1>
+            </header>
+            
+            <main class="victory-body">
+                <div class="winner-display">
+                    <div class="victory-portrait">
+                        <img src="./images/placeholder.png" id="winner-img" alt="Winner">
+                    </div>
+                    <div class="winner-meta">
+                        <h2 id="winner-name">PLAYER 1</h2>
+                        <h3 id="winner-character" class="yellow-text">CAPTAIN NAME</h3>
+                        <p class="turn-record">Game won in <span id="final-turns">0</span> turns.</p>
+                    </div>
+                </div>
+
+                <div class="victory-dialogue">
+                    <span class="speaker-name" id="winner-speaker">CHARACTER NAME</span>
+                    <div class="message-container">
+                        <p id="victory-quote">"The sea is a vast place, but there's no room for you."</p>
+                    </div>
+                </div>
+            </main>
+
+            <button id="restart-btn" class="ready-button">RETURN TO HQ</button>
+        </div>
+    </section>    
 </body>
 </html>
