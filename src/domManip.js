@@ -23,6 +23,7 @@ const speakerName = document.querySelector(".speaker-name");
 const tooltipGadgetName = document.querySelector("#ability-name");
 const tooltipGadgetDesc = document.querySelector("#ability-desc");
 const battlefieldContainer = document.querySelector(".battlefield-container");
+const charSelectScreen = document.querySelector("#character-select-screen");
 
 const changeScreen = (screenID) => {
     screenList.forEach(screen => {
@@ -249,10 +250,10 @@ const toggleHiddenShipBlocks = () => {
         inactivePlayer = "p1"
     }
     const activeBlocks = Array.from(document.querySelectorAll(`.${activePlayer}-block.hidden-block`));
-    console.log(activeBlocks);
+    // console.log(activeBlocks);
     activeBlocks.forEach(block => block.classList.remove("hidden-block"));
     const inactiveBlocks = Array.from(document.querySelectorAll(`.${inactivePlayer}-block.occupied-block`));
-    console.log(inactiveBlocks);
+    // console.log(inactiveBlocks);
     inactiveBlocks.forEach(block => block.classList.add("hidden-block"));
 }
 
@@ -274,6 +275,8 @@ const toggleActiveBoard = () => {
         p1Grid.classList.add("active-board");      
     }
 }
+
+
 
 const domManip = {changeScreen, displayCharIcon, displayCharInfo, setupGrids, selectShip,
     hoverGridCell, unhoverGridCell, toggleCheckbox, placeShipDom, startGameDom, attackHit,

@@ -756,5 +756,65 @@ input:checked + .slider:before {
     color: #fff;
 }
 
+/* Turn Pass Screen */
+
+
+#pass-screen {
+    background: var(--navy-dark);
+    z-index: 2000;
+}
+
+.pass-card {
+    width: 500px;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    border: 2px solid var(--navy-light);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    text-align: center;
+}
+
+.secure-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--navy-light);
+    background: #fff;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+#next-player-display {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--yellow);
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+}
+
+.pass-body {
+    margin-bottom: 40px;
+}
+
+.pass-body p {
+    font-size: 1.1rem;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.pass-instruction {
+    font-size: 0.9rem;
+    opacity: 0.6;
+    line-height: 1.5;
+}
+
+#confirm-pass-btn {
+    width: 100%;
+    letter-spacing: 2px;
+}
+
 
 

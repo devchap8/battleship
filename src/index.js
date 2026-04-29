@@ -103,13 +103,17 @@ const readyButtonClicked = () => {
         params.game.p2.board.makeRandomBoard();
         startGame();
     } else if(params.game.p2.board.getShipSpaces() < 1) { // 2p, player 1 ready
+        domManip.changeScreen("pass-screen");
         params.game.isP1Turn = false;
         domManip.toggleHiddenShipBlocks();
         domManip.reactivateShipCards();
         params.game.selectedShipLen = 0;
 
     } else if(params.game.p2.board.getShipSpaces() >= 17) { // 2p, player 2 ready
-        startGame();
+        domManip.changeScreen("pass-screen");
+        setTimeout(() => {
+            startGame();
+        }, 500);
     }
 }
 
@@ -155,11 +159,18 @@ const attackSquareUniversal = (target) => {
     } else {
         aikawaHit = normalAttack(attackedPlayer, row, col, block, attackingPlayer);
     }
-
+    console.log(attackedPlayer);
     if(attackedPlayer.board.getShipSpaces() < 1) {
         params.game.isP1Turn ? gameWon(params.game.p1) : gameWon(params.game.p2);
     } else if(!aikawaHit) {
-        newTurn();
+        if(params.game.isSingleplayer) newTurn();
+        else if(attackedPlayer.character === "shrapnel" && attackedPlayer.abilityTurns > 0) {
+            attackedPlayer.abilityTurns--;
+        }
+        // dont transition screen if shrapnel is recharging
+        else  {
+            passScreenTransition();
+        } 
     } else if(aikawaHit && !attackingPlayer.isRealPlayer && attackingPlayer.abilityTurns > 0) {
         setTimeout(() => {computerEnemyLogic()}, 1000);
     }
@@ -363,21 +374,21 @@ const getRandomAdjacent = (ship) => {
     for(let num of numMods) {
         
         if(parseInt(shipNum) + parseInt(num) < 0 || parseInt(shipNum) + parseInt(num) > 99) {
-            console.log(`Num: ${num} out of range ()`);
+            // console.log(`Num: ${num} out of range ()`);
             badMoveCount++;
             continue;
         } 
         adjacentBlock = document.querySelector(`#player-1-grid [data-block-num="${parseInt(shipNum) + parseInt(num)}"]`);
         if(adjacentBlock.classList.contains("attacked-hit") || adjacentBlock.classList.contains("attacked-miss") 
         || adjacentBlock.classList.contains("revealed-miss")) {
-            console.log(`Num: ${num} failed class check`);
+            // console.log(`Num: ${num} failed class check`);
             badMoveCount++;
             continue;
         }
         break;
     }
     if(badMoveCount > 3) return null
-    console.log(adjacentBlock);
+    // console.log(adjacentBlock);
     return adjacentBlock
 }
 
@@ -417,14 +428,14 @@ const newTurn = () => {
         if(currPlayer.isRealPlayer) {
             domManip.toggleBattlefieldActive();
             setTimeout(() => {
-                currPlayer.abilityTurns--;
+                if(params.game.isSingleplayer) currPlayer.abilityTurns--;
                 currPlayer.abilityCancelable = false;
                 currPlayer.abilityAvailable = false;
                 // display shrapnel dialogue
                 domManip.toggleBattlefieldActive();
                 newTurn();
                 return;
-            }, 1000)
+            }, 500)
         }
         else {
             currPlayer.abilityTurns--;
@@ -525,6 +536,17 @@ const revealRandomShipSquare = () => {
     }
 }
 
+const passScreenTransition = () => {
+    // timeout so players can see if they hit or not before screen change 
+    setTimeout(() => {
+        // nested timeout so other board doesnt show before screen change
+        domManip.changeScreen("pass-screen");
+        setTimeout(() => {
+            newTurn();
+        }, 500);
+    }, 500);
+}
+
 const init = () => {
     // setup single player button event listener
     const singleplayerButton = document.querySelector(".singleplayer-button");
@@ -574,6 +596,10 @@ const init = () => {
     // gadget icon
     const abilityIcon = document.querySelector(".ability-icon");
     abilityIcon.addEventListener("click", gadgetIconClicked);
+
+    // pass screen button
+    const confirmPassButton = document.querySelector("#confirm-pass-btn");
+    confirmPassButton.addEventListener("click", () => domManip.changeScreen("game-screen"));
 }
 init();
 
