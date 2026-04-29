@@ -166,6 +166,8 @@ const attackSquareUniversal = (target) => {
         if(params.game.isSingleplayer) newTurn();
         else if(attackedPlayer.character === "shrapnel" && attackedPlayer.abilityTurns > 0) {
             attackedPlayer.abilityTurns--;
+            attackedPlayer.abilityCancelable = false;
+            attackedPlayer.abilityAvailable = false;
         }
         // dont transition screen if shrapnel is recharging
         else  {
