@@ -605,6 +605,10 @@ const init = () => {
     // pass screen button
     const confirmPassButton = document.querySelector("#confirm-pass-btn");
     confirmPassButton.addEventListener("click", () => domManip.changeScreen("game-screen"));
+
+    // new game button
+    const restartButton = document.querySelector("#restart-btn");
+    restartButton.addEventListener("click", () => location.reload());
 }
 init();
 
