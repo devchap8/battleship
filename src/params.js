@@ -201,7 +201,14 @@ const characters = [
         description: "Attacks every square in a 3x3 radius at the cost of losing your next turn to recharge.",
         characterPortrait: shrapnelPortrait,
         gadgetPortrait: mobyDick,
-        victoryMessage: "Shrapnel victory message"
+        lines: {
+            waiting: "Don't just stand there with your hands in your pockets! Give me a target before I start shooting at the clouds for fun!",
+            hit: "DIRECT HIT! Ha! Did you see the wood fly?! Keep 'em coming, boys, we’re just getting warmed up!",
+            miss: "Aww, just a warning shot! I wanted to see them jump a little before we really let 'em have it! Realign and fire again!",
+            sunk: "BOOM! Down to the locker they go! That’s how a real crew does it! Now on to the next!",
+            gadget: "CLEAR THE DECK! It’s time for the big one! Once this baby goes off, I’m taking a well-deserved nap while you lot sweep up the pieces!",
+            victory: "VICTORY! Look at that beautiful smoke! You’re the best crew a captain could ask for—now let’s find some more trouble!"
+        }
     }, {
         id: "yelena",
         name: "Officer Yelena",
@@ -211,7 +218,14 @@ const characters = [
         description: "For your next 3 attacks, the 4 squares adjacent to where you attacked are revealed.",
         characterPortrait: yelenaPortrait,
         gadgetPortrait: sonarBomb,
-        victoryMessage: "Yelena victory message"
+        lines: {
+            waiting: "Awaiting coordinates. Hesitation is a tactical liability.",
+            hit: "Target struck. Maintaining pressure.",
+            miss: "Recalibrate the cannons. We do not waste ammunition.",
+            hit: "Enemy ship neutralized. Confirming next target.",
+            gadget: "Sonar bombs ready. Data incoming—all units, prepare to engage.",
+            victory: "Objective secured. Report to stations for post-action debrief."
+        }
     }, {
         id: "aikawa",
         name: "Admiral Aikawa",
@@ -221,7 +235,14 @@ const characters = [
         description: "One tile containing an enemy ship is revealed. For your next 3 turns, if you hit an enemy ship, you can shoot again until you miss.",
         characterPortrait: aikawaPortrait,
         gadgetPortrait: gatlingCannon,
-        victoryMessage: "Aikawa victory message"
+        lines: {
+            waiting: "Patience. The sea always reveals an opening if you're willing to watch for it.",
+            hit: "Exactly as anticipated. They’re right where I want them.",
+            miss: "A minor deviation. Adjust the lead; their luck won't hold twice.",
+            sunk: "Efficiently handled. One less variable to account for on the board.",
+            gadget: "Prepare the gatling. While they're scrambling to recover, we'll ensure they never get the chance.",
+            victory: "The outcome was never in doubt. Secure the perimeter and prepare to move out."
+        }
     }
 ];
 

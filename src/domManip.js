@@ -287,7 +287,7 @@ const displayGameEndInfo = (player) => {
     winnerCharacter.innerHTML = player.character.toUpperCase();
     winnerSpeaker.innerHTML = player.character.toUpperCase();
     finalTurns.innerHTML = +params.game.turn + 1;
-    victoryMessage.innerHTML = player.charInfo.victoryMessage
+    victoryMessage.innerHTML = player.charInfo.lines.victory;
 }
 
 
