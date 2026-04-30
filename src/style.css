@@ -255,6 +255,7 @@ Character Select Screen
 
 .character-sidebar > img {
     width: 60%;
+    max-width: 200px;
     height: auto;
     border: 3px solid rgba(255, 255, 255, .1);
     border-radius: 30px;
@@ -364,7 +365,7 @@ Game Screen
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 20px 0 0 0;
+    /* padding: 20px 0 0 0; */
 }
 
 .game-header {
@@ -390,8 +391,8 @@ Game Screen
 
 .grid-board {
     display: grid;
-    grid-template-columns: repeat(10, 60px);
-    grid-template-rows: repeat(10, 60px);
+    grid-template-columns: repeat(10, 50px);
+    grid-template-rows: repeat(10, 50px);
     gap: 2px;
     background-color: rgba(255, 255, 255, 0.1);
     border: 3px solid var(--navy-light);
