@@ -733,17 +733,19 @@ input:checked + .slider:before {
 }
 
 .revealed-hit, .revealed-miss {
-    text-align: center;
-    font-size: 3rem;
-    font-weight: 700;
     color: gray;
 }
 
 .attacked-hit, .attacked-miss, .attacked-sunk {
     pointer-events: none;
-    text-align: center;
+}
+
+.attacked-hit, .attacked-miss, .attacked-sunk, .revealed-hit, .revealed-miss {
     font-size: 3rem;
     font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .attacked-hit {

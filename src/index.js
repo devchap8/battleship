@@ -159,6 +159,9 @@ const attackSquareUniversal = (target) => {
     } else {
         aikawaHit = normalAttack(attackedPlayer, row, col, block, attackingPlayer);
     }
+    if(attackingPlayer.character === "aikawa" && attackingPlayer.abilityTurns > 0 && aikawaHit === false && document.querySelector(".battlefield-container").classList.contains("inactive") && !attackingPlayer.isRealPlayer) {
+        domManip.toggleBattlefieldActive();
+    }
     console.log(attackedPlayer);
     if(attackedPlayer.board.getShipSpaces() < 1) {
         params.game.isP1Turn ? gameWon(params.game.p1) : gameWon(params.game.p2);
@@ -173,7 +176,10 @@ const attackSquareUniversal = (target) => {
             passScreenTransition();
         } 
     } else if(aikawaHit && !attackingPlayer.isRealPlayer && attackingPlayer.abilityTurns > 0) {
-        setTimeout(() => {computerEnemyLogic()}, 1000);
+        if(!document.querySelector(".battlefield-container").classList.contains("inactive")) domManip.toggleBattlefieldActive();
+        setTimeout(() => {
+            computerEnemyLogic();
+        }, 500);
     }
  }
 
@@ -432,7 +438,6 @@ const newTurn = () => {
                 if(params.game.isSingleplayer) currPlayer.abilityTurns--;
                 currPlayer.abilityCancelable = false;
                 currPlayer.abilityAvailable = false;
-                // display shrapnel dialogue
                 domManip.toggleBattlefieldActive();
                 newTurn();
                 return;
@@ -442,7 +447,6 @@ const newTurn = () => {
             currPlayer.abilityTurns--;
             currPlayer.abilityCancelable = false;
             currPlayer.abilityAvailable = false;
-            // display shrapnel dialogue
             newTurn();
             return;
         }
@@ -453,7 +457,15 @@ const newTurn = () => {
         currPlayer.abilityAvailable = false;
     }
     if(params.game.isSingleplayer && !currPlayer.isRealPlayer) {
-        computerEnemyLogic();
+        if(!document.querySelector(".battlefield-container").classList.contains("inactive")) {
+            domManip.toggleBattlefieldActive();
+        }
+        setTimeout(() => {  
+            computerEnemyLogic();
+            if(document.querySelector(".battlefield-container").classList.contains("inactive")) {
+                domManip.toggleBattlefieldActive();
+            } 
+        }, 500);
     } 
     if(currPlayer.isRealPlayer) domManip.newTurnAbilityIconCheck(currPlayer); 
 }
