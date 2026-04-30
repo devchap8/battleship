@@ -822,19 +822,15 @@ input:checked + .slider:before {
    Victory Screen 
    ===================== */
 
-#victory-screen {
-    background: radial-gradient(circle, var(--navy-light) 0%, var(--navy-dark) 100%);
-}
-
 .victory-card {
-    width: 700px;
+    width: 900px;
     padding: 50px;
     background: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(12px);
     border: 2px solid var(--navy-light);
     border-radius: 20px;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
-    text-align: left; /* Alignment matches your character info screen */
+    text-align: left; 
 }
 
 #victory-title {
@@ -847,7 +843,8 @@ input:checked + .slider:before {
 
 .winner-display {
     display: flex;
-    gap: 30px;
+    min-width: 400px;
+    gap: 20px;
     align-items: center;
     margin-bottom: 40px;
 }
@@ -890,6 +887,11 @@ input:checked + .slider:before {
     border-radius: 12px;
     border-left: 4px solid var(--yellow);
     margin-bottom: 40px;
+    font-size: 1rem;
+}
+
+#victory-quote {
+    font-size: 1rem;
 }
 
 #restart-btn {
