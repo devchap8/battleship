@@ -29,6 +29,7 @@ const winnerCharacter = document.querySelector("#winner-character");
 const winnerSpeaker = document.querySelector("#winner-speaker");
 const finalTurns = document.querySelector("#final-turns");
 const victoryMessage = document.querySelector("#victory-quote");
+const dialogueText = document.querySelector("#typewriter-text");
 
 const changeScreen = (screenID) => {
     screenList.forEach(screen => {
@@ -290,11 +291,26 @@ const displayGameEndInfo = (player) => {
     victoryMessage.innerHTML = player.charInfo.lines.victory;
 }
 
+const displayText = (text) => {
+    dialogueText.innerHTML = "";
+    let i = 0;
+    function type() {
+        if(i < text.length) {
+            dialogueText.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(() => {
+                type();
+            }, 10);
+        }
+    }
+    type();
+}
+
 
 const domManip = {changeScreen, displayCharIcon, displayCharInfo, setupGrids, selectShip,
     hoverGridCell, unhoverGridCell, toggleCheckbox, placeShipDom, startGameDom, attackHit,
     attackMiss, sinkShip, toggleAbilityActive, newTurnAbilityIconCheck, revealHit, revealMiss,
     toggleBattlefieldActive, toggleHiddenShipBlocks, reactivateShipCards, showPlayerGameInfo,
-    toggleActiveBoard, displayGameEndInfo
+    toggleActiveBoard, displayGameEndInfo, displayText
 };
 export {domManip};

@@ -122,6 +122,7 @@ const startGame = () => {
     addAttackEventListeners();
     params.game.isP1Turn = true;
     domManip.toggleHiddenShipBlocks();
+    domManip.displayText(params.game.p1.charInfo.lines.waiting);
     console.log(params.game);
 }
 
@@ -429,7 +430,10 @@ const newTurn = () => {
     params.game.isP1Turn ? currPlayer = params.game.p1 : currPlayer = params.game.p2;
     // if 2p game initiate 2p turn switch
     if(!params.game.isSingleplayer) TwoPlayerNewTurn(currPlayer);
-    if(currPlayer.isRealPlayer) domManip.newTurnAbilityIconCheck(currPlayer); 
+    if(currPlayer.isRealPlayer) {
+        domManip.newTurnAbilityIconCheck(currPlayer); 
+        domManip.displayText(currPlayer.charInfo.lines.waiting);
+    }
     // skip shrapnel turn after ability used
     if(currPlayer.character === "shrapnel" && currPlayer.abilityTurns > 0) {
         if(currPlayer.isRealPlayer) {

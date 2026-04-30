@@ -696,7 +696,7 @@ input:checked + .slider:before {
     background: #000;
 }
 
-.dialogue-portrait img { width: 100%; height: 100%; object-fit: cover; }
+.dialogue-portrait img { width: 116px; height: 116px; object-fit: cover; }
 
 .dialogue-content {
     flex-grow: 1;
