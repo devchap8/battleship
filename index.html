@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battleship</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+<script defer src="main.js"></script></head>
+<body>
+    <div class="background-image-container"></div>
+    <section id="menu-screen" class="screen active">
+    <!-- Make active later ^^^^^ -->
+        <header>
+            <h1>BATTLESHIP</h1>
+        </header>
+        <main>
+            <!-- <div class="background-image-container"></div> -->
+            <section class="gamemode-select-panel">
+                
+                <div class="selection-row">
+                    <button class="gamemode-button singleplayer-button">
+                        SINGLEPLAYER
+                    </button>
+                    <div class="tooltip-container">
+                        <span class="tooltip-icon">i</span>
+                        <div class="tooltip-box">
+                            <h3>Battle the AI</h3>
+                            <p>Fight 1v1 against the AI which chooses and random character and keeps track of the ships is has hit.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="selection-row">
+                    <button class="gamemode-button twoplayer-button">
+                        TWO PLAYER
+                    </button>
+                    <div class="tooltip-container">
+                        <span class="tooltip-icon">i</span>
+                        <div class="tooltip-box">
+                            <h3>Local VS</h3>
+                            <p>Fight against a friend on the same screen, switching the computer with eachother between turns.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </section>
+
+    <section id="character-select-screen" class="screen">
+        <!-- Remove active later ^^^^^ -->
+         <div class="character-sidebar">
+            <h2 class="character-select-header">Select Character</h2>
+         </div>
+         <div class="character-info">
+             <div class="character-info-pic-line">
+                <img src="./images/placeholder.png" class="character-portrait">
+                <img src="./images/placeholder.png" class="gadget-portrait">
+             </div>
+             <div class="character-info-names-line">
+                <div class="character-name">CHARACTER NAME</div>
+                <div class="gadget-name">GADGET NAME</div>
+             </div>
+             <div class="character-info-description-line">
+                <div class="character-description">Character Description</div>
+                <div class="gadget-description">Gadget Description</div>
+             </div>
+             <button class="select-character-button">Select</button>
+         </div>
+    </section>
+
+    <section id="game-screen" class="screen">
+        <!-- Remove active later ^^^ -->
+        <header class="game-header">
+            <div class="game-status-text">
+                <h2 id="phase-title">FLEET DEPLOYMENT</h2>
+                <p id="phase-subtitle">Drag ships onto your grid</p>
+            </div>
+            
+            <div class="ability-container hidden">
+                <div class="ability-icon">
+                    <img src="./images/placeholder.png" alt="Ability">
+                </div>
+                <div class="tooltip-box ability-tooltip">
+                    <h3 id="ability-name">Ability Name</h3>
+                    <p id="ability-desc">Ability Description</p>
+                </div>
+            </div>
+        </header>
+
+        <main class="battlefield-container">
+            <div class="grid-wrapper">
+                <h3 class="grid-label">PLAYER 1</h3>
+                <div id="player-1-grid" class="grid-board"></div>
+            </div>
+            
+            <div class="grid-wrapper">
+                <h3 class="grid-label">PLAYER 2</h3>
+                <div id="player-2-grid" class="grid-board enemy-hidden"></div>
+            </div>
+        </main>
+
+        <footer class="game-footer">
+            <div id="setup-controls" class="footer-overlay">
+                <div class="placement-controls">
+                    <div class="reset-grid-button">RESET</div>
+                    <div class="rotation-toggle-container">
+                        <span class="toggle-label">HORIZ</span>
+                        <label class="switch">
+                            <input type="checkbox" id="rotation-slider">
+                            <span class="slider"></span>
+                        </label>
+                        <span class="toggle-label">VERT</span>
+                    </div>
+                </div>
+                <div class="ship-inventory">
+                    <div class="ship-card" data-ship="carrier" data-length="5">
+                        <div class="ship-icon">🚢</div>
+                        <span class="ship-label">Size 5</span>
+                    </div>
+                    <div class="ship-card" data-ship="battleship" data-length="4">
+                        <div class="ship-icon">🚢</div>
+                        <span class="ship-label">Size 4</span>
+                    </div>
+                    <div class="ship-card" data-ship="destroyer" data-length="3">
+                        <div class="ship-icon">🛥️</div>
+                        <span class="ship-label">Size 3</span>
+                    </div>
+                    <div class="ship-card" data-ship="submarine" data-length="3">
+                        <div class="ship-icon">⚓</div>
+                        <span class="ship-label">Size 3</span>
+                    </div>
+                    <div class="ship-card" data-ship="patrol" data-length="2">
+                        <div class="ship-icon">🚤</div>
+                        <span class="ship-label">Size 2</span>
+                    </div>
+                </div>
+                <button id="finalize-btn" class="ready-button">READY TO BATTLE</button>
+            </div>
+
+            <div id="dialogue-interface" class="footer-overlay hidden">
+                <div class="dialogue-portrait">
+                    <img src="./images/placeholder.png" alt="Character">
+                </div>
+                <div class="dialogue-content">
+                    <span class="speaker-name">CAPTAIN NAME</span>
+                    <div class="message-container">
+                        <p id="typewriter-text">...</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </section>
+
+    <section id="pass-screen" class="screen">
+        <div class="pass-card">
+            <header class="pass-header">
+                <div class="secure-tag">NEW TURN</div>
+                <h2 id="next-player-display">PLAYER 1</h2>
+            </header>
+            
+            <div class="pass-body">
+                <p>The previous turn has ended.</p>
+                <p class="pass-instruction">Hand the device to the next player. <br> Ensure the other player cannot see your screen.</p>
+            </div>
+
+            <button id="confirm-pass-btn" class="ready-button">RESUME BATTLE</button>
+        </div>
+    </section>
+
+    <section id="victory-screen" class="screen">
+        <div class="background-image-container"></div>
+        
+        <div class="victory-card">
+            <header class="victory-header">
+                <div class="secure-tag">BATTLE OVER</div>
+                <h1 id="victory-title">VICTORY</h1>
+            </header>
+            
+            <main class="victory-body">
+                <div class="winner-display">
+                    <div class="victory-portrait">
+                        <img src="./images/placeholder.png" id="winner-img" alt="Winner">
+                    </div>
+                    <div class="winner-meta">
+                        <h2 id="winner-name">PLAYER 1</h2>
+                        <h3 id="winner-character" class="yellow-text">CAPTAIN NAME</h3>
+                        <p class="turn-record">Game won in <span id="final-turns">0</span> turns.</p>
+                    </div>
+                </div>
+
+                <div class="victory-dialogue">
+                    <span class="speaker-name" id="winner-speaker">CHARACTER NAME</span>
+                    <div class="message-container">
+                        <p id="victory-quote">Victory Quote</p>
+                    </div>
+                </div>
+            </main>
+
+            <button id="restart-btn" class="ready-button">RETURN TO START</button>
+        </div>
+    </section>    
+</body>
+</html>
