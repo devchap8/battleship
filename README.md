@@ -26,7 +26,7 @@ Smart AI: Computer tracks hits, determines ship orientation, and uses abilities
 ## How to Play
 Setup:
 
-* Run the project through the Github Pages deployment.
+* Run the project through the Github Pages deployment (https://devchap8.github.io/battleship/)
 
 * Select Singleplayer or 2 Player.
 
