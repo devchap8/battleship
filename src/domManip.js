@@ -300,7 +300,7 @@ const displayText = (text) => {
             i++;
             setTimeout(() => {
                 type();
-            }, 10);
+            }, 5);
         }
     }
     type();

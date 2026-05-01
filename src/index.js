@@ -193,14 +193,18 @@ const normalAttack = (attackedPlayer, row, col, hitBlock, attackingPlayer) => {
             hitShip.shipData = shipDataFromDom(hitBlock, attackedPlayer);
             attackingPlayer.aiInfo.hitShips.push(hitShip);
             if(attackingPlayer.aiInfo.hitShips.length > 1) checkHitShipOrientation(hitShip);
+        } else if(!hitInfo.wasSunk && attackingPlayer.isRealPlayer) {
+            domManip.displayText(attackingPlayer.charInfo.lines.hit)
         }
     } else {    
         domManip.attackMiss(hitBlock);
+        if(attackingPlayer.isRealPlayer) domManip.displayText(attackingPlayer.charInfo.lines.miss);
     }
     if( hitInfo.wasSunk) {
         const shipType  = attackedPlayer.board.board[row][col].type;
         domManip.sinkShip(shipType);
         if(!params.game.isP1Turn && !params.game.p2.isRealPlayer) untrackHitShip(shipType);
+        if(attackingPlayer.isRealPlayer) domManip.displayText(attackingPlayer.charInfo.lines.sunk);
     } if(hitInfo.wasHit && attackingPlayer.character === "aikawa" && attackingPlayer.abilityTurns > 0) {
         return true;
     }
@@ -469,7 +473,7 @@ const newTurn = () => {
             if(document.querySelector(".battlefield-container").classList.contains("inactive")) {
                 domManip.toggleBattlefieldActive();
             } 
-        }, 500);
+        }, 1000);
     } 
     if(currPlayer.isRealPlayer) domManip.newTurnAbilityIconCheck(currPlayer); 
 }
@@ -496,6 +500,7 @@ const gadgetIconClicked = () => {
     } if(player.abilityTurns > 0 && player.abilityCancelable) {
         cancelGadget(player);
     } else {
+        domManip.displayText(player.charInfo.lines.gadget);
         useGadget(player);
     }
 }
